@@ -37,9 +37,11 @@ export function MagicCardDemo() {
           gradientTo="#8b5cf6"
         >
           {/* Número de paso en la esquina superior derecha */}
-          <div className="absolute top-4 right-4 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 text-white text-xl font-bold transition-colors duration-300 group-hover:bg-purple-500">
+          <div className="absolute top-4 right-4 flex items-center justify-center w-10 h-10 rounded-full border border-gray-500/30 text-white text-xl font-bold transition-colors duration-300 group-hover:border-purple-500/80">
             {index + 1}
           </div>
+
+
 
           <div className="flex flex-col items-start">
             {card.icon}
