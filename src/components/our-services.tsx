@@ -33,8 +33,8 @@ const files = [
 const features = [
   {
     Icon: FileTextIcon,
-    name: "Save your files",
-    description: "We automatically save your files as you type.",
+    name: "Aprendizaje Automático",
+    description: "Sistemas de aprendizaje automático personalizados.",
     href: "#",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-1",
@@ -68,8 +68,8 @@ const features = [
   },
   {
     Icon: BellIcon,
-    name: "Notifications",
-    description: "Get notified when something happens.",
+    name: "Notificaciones",
+    description: "Automatiza notificaciones en tiempo real.",
     href: "#",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2",
@@ -79,8 +79,8 @@ const features = [
   },
   {
     Icon: Share2Icon,
-    name: "Integrations",
-    description: "Supports 100+ integrations and counting.",
+    name: "Integraciones",
+    description: "Conecta +100 integraciones y sigue aumentando.",
     href: "#",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2",
@@ -90,8 +90,8 @@ const features = [
   },
   {
     Icon: CalendarIcon,
-    name: "Calendar",
-    description: "Use the calendar to filter your files by date.",
+    name: "Calendario",
+    description: "Automatiza tus citas y eventos.",
     className: "col-span-3 lg:col-span-1",
     href: "#",
     cta: "Learn more",

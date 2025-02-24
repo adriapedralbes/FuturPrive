@@ -10,18 +10,18 @@ export function MagicCardDemo() {
   const cards = [
     {
       icon: <Upload className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />,
-      title: "Upload Your Video",
-      description: "Easily categorize the scripts and optimize the media to create high-quality blog posts."
+      title: "Agenda tu consulta",
+      description: "Agenda tu consulta gratuita y te mostramos cómo impulsar tu proyecto con tecnología."
     },
     {
       icon: <Wand2 className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />,
-      title: "AI Magic",
-      description: "Create SEO-optimized blog posts that are easy to customize and share."
+      title: "Planificar Soluciones",
+      description: "Planificamos y automatizamos procesos para reducir costes y maximizar beneficios."
     },
     {
       icon: <Download className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />,
-      title: "Optimize and Export",
-      description: "Content is provided in Markdown format and can be easily exported."
+      title: "Implementar automatización",
+      description: "Implementamos soluciones personalizadas para tu proyecto."
     }
   ];
 

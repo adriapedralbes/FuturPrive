@@ -6,6 +6,7 @@ import { AnimatedButton } from "@/components/animatedButton"
 import { BentoDemo } from "@/components/our-services"
 import { ShimmerButtonDemo } from "@/components/animatedButton2"
 import { MagicCardDemo } from "@/components/magicCard"
+import { RainbowButtonDemo } from "@/components/rainbowButton"
 
 export default function Page() {
   return (
@@ -26,17 +27,16 @@ export default function Page() {
             <ShimmerButtonDemo />
           </div>
           {/* Heading */}
-          <h1 className="mb-6 text-5xl font-bold tracking-tight lg:text-7xl">
-            AI-Powered <br />
-            Blogs With{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Media</span>.
+          <h1 className="mb-6 text-5xl font-bold tracking-tight lg:text-5xl">
+            Soluciones IA personalizadas. <br /> Reducen Costes y Maximizan {" "}
+            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Beneficio</span>
           </h1>
 
           {/* Subtitle */}
           <p className="mb-8 text-lg text-gray-400">
-            Create high-quality blog posts with videos,
+            ¿Listo para impulsar tu proyecto con tecnología?
             <br />
-            customize content, and export in Markdown format effortlessly!
+            Agenda tu consultoría gratuita ahora y te mostraremos cómo.
           </p>
 
           {/* CTA Button */}
@@ -45,7 +45,7 @@ export default function Page() {
             size="lg"
             className="gap-2 font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            Start creating for free
+            Agenda tu Consultoría Gratuita Ahora
             <ArrowRight className="h-4 w-4" />
           </Button>
           {/* Dashboard Preview */}
@@ -65,9 +65,9 @@ export default function Page() {
             Nuestros Servicios
           </h1>
           <p className="mt-5 text-lg text-gray-400">
-            Create high-quality blog posts with videos,
-            <br />
-            customize content, and export in Markdown format effortlessly!
+            Acompañamos a tu proyecto en la implementación, desarrollo
+            de tecnologías IA y soluciones de automatización, <br />asegurando una transición fluida desde inicio
+            hasta el despliegue y el logro de resultados tangibles.
           </p>
         </div>
         <BentoDemo />
@@ -81,12 +81,17 @@ export default function Page() {
             en 3 pasos
           </h1>
           <p className="mt-5 text-lg text-gray-400">
-            Create high-quality blog posts with videos,
-            <br />
-            customize content, and export in Markdown format effortlessly!
+            Agenda tu llamada, obten recomendación y recibe tu solución.<br />
+            Nuestro equipo de expertos te acompañará en cada paso.
           </p>
         </div>
         <MagicCardDemo />
+        <div className="mt-14">
+          <RainbowButtonDemo>
+            Agenda tu Consultoría Gratuita Ahora
+          </RainbowButtonDemo>
+        </div>
+
       </section>
 
 
