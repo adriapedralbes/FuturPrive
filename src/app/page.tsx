@@ -7,6 +7,7 @@ import { BentoDemo } from "@/components/our-services"
 import { ShimmerButtonDemo } from "@/components/animatedButton2"
 import { MagicCardDemo } from "@/components/magicCard"
 import { RainbowButtonDemo } from "@/components/rainbowButton"
+import { DialogNewsletter } from "@/components/dialogButton"
 
 export default function Page() {
   return (
@@ -24,7 +25,7 @@ export default function Page() {
         <div className="mx-auto max-w-4xl">
           {/* Badge */}
           <div className="flex justify-center mb-3">
-            <ShimmerButtonDemo />
+            <DialogNewsletter />
           </div>
           {/* Heading */}
           <h1 className="mb-6 text-5xl font-bold tracking-tight lg:text-5xl">
