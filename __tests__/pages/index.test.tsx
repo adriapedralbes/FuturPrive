@@ -1,15 +1,19 @@
 // __tests__/pages/index.test.tsx
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Page from '@/app/page'; // Ajusta esta ruta si es necesaria
 import '@testing-library/jest-dom';
 
-// Mock de los componentes importados para aislar el test de la página
+// Mocks de los componentes importados para aislar el test de la página
+
 jest.mock('@/components/video-presentation', () => ({
     VideoPresentation: () => <div data-testid="video-presentation">Video Mocked</div>,
 }));
 
 jest.mock('@/components/animatedButton', () => ({
-    AnimatedButton: ({ children }) => <button data-testid="animated-button">{children}</button>,
+    AnimatedButton: ({ children }: { children: React.ReactNode }) => (
+        <button data-testid="animated-button">{children}</button>
+    ),
 }));
 
 jest.mock('@/components/our-services', () => ({
@@ -25,7 +29,9 @@ jest.mock('@/components/magicCard', () => ({
 }));
 
 jest.mock('@/components/rainbowButton', () => ({
-    RainbowButtonDemo: ({ children }) => <button data-testid="rainbow-button">{children}</button>,
+    RainbowButtonDemo: ({ children }: { children: React.ReactNode }) => (
+        <button data-testid="rainbow-button">{children}</button>
+    ),
 }));
 
 jest.mock('@/components/dialogButton', () => ({
@@ -34,7 +40,9 @@ jest.mock('@/components/dialogButton', () => ({
 
 jest.mock('next/link', () => ({
     __esModule: true,
-    default: ({ children, href }) => <a href={href}>{children}</a>,
+    default: ({ children, href }: { children: React.ReactNode; href: string }) => (
+        <a href={href}>{children}</a>
+    ),
 }));
 
 jest.mock('lucide-react', () => ({
@@ -42,8 +50,23 @@ jest.mock('lucide-react', () => ({
 }));
 
 jest.mock('@/components/ui/button', () => ({
-    Button: ({ children, variant, size, className }) => (
-        <button className={className} data-variant={variant} data-size={size} data-testid="main-cta-button">
+    Button: ({
+        children,
+        variant,
+        size,
+        className,
+    }: {
+        children: React.ReactNode;
+        variant?: string;
+        size?: string;
+        className?: string;
+    }) => (
+        <button
+            className={className}
+            data-variant={variant}
+            data-size={size}
+            data-testid="main-cta-button"
+        >
             {children}
         </button>
     ),
@@ -64,7 +87,9 @@ describe('Landing Page', () => {
     });
 
     it('renders the subtitle', () => {
-        expect(screen.getByText(/¿Listo para impulsar tu proyecto con tecnología\?/i)).toBeInTheDocument();
+        expect(
+            screen.getByText(/¿Listo para impulsar tu proyecto con tecnología\?/i)
+        ).toBeInTheDocument();
     });
 
     it('renders the CTA button', () => {
