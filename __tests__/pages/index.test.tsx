@@ -6,6 +6,7 @@ import '@testing-library/jest-dom';
 
 // Mocks de los componentes importados para aislar el test de la página
 
+// Opción 1: Si los componentes usan exportación nombrada
 jest.mock('@/components/video-presentation', () => ({
     VideoPresentation: () => <div data-testid="video-presentation">Video Mocked</div>,
 }));
@@ -20,6 +21,7 @@ jest.mock('@/components/our-services', () => ({
     BentoDemo: () => <div data-testid="bento-demo">Services Mocked</div>,
 }));
 
+// Este componente no se usa en la página actual, pero lo mantenemos por si acaso
 jest.mock('@/components/animatedButton2', () => ({
     ShimmerButtonDemo: () => <div data-testid="shimmer-button">Shimmer Button Mocked</div>,
 }));
@@ -36,6 +38,11 @@ jest.mock('@/components/rainbowButton', () => ({
 
 jest.mock('@/components/dialogButton', () => ({
     DialogNewsletter: () => <div data-testid="dialog-newsletter">Newsletter Dialog Mocked</div>,
+}));
+
+// Añadido el mock para Footer que faltaba
+jest.mock('@/components/footer-component', () => ({
+    Footer: () => <footer data-testid="footer">Footer Mocked</footer>,
 }));
 
 jest.mock('next/link', () => ({
@@ -71,6 +78,20 @@ jest.mock('@/components/ui/button', () => ({
         </button>
     ),
 }));
+
+// Alternativa: Si algún componente usa exportación por defecto en lugar de nombrada,
+// puedes cambiarlo así (descomenta según sea necesario):
+/*
+jest.mock('@/components/video-presentation', () => {
+    return () => <div data-testid="video-presentation">Video Mocked</div>;
+});
+
+jest.mock('@/components/animatedButton', () => {
+    return ({ children }: { children: React.ReactNode }) => (
+        <button data-testid="animated-button">{children}</button>
+    );
+});
+*/
 
 describe('Landing Page', () => {
     beforeEach(() => {
@@ -108,6 +129,8 @@ describe('Landing Page', () => {
         expect(screen.getByTestId('bento-demo')).toBeInTheDocument();
         expect(screen.getByTestId('magic-card')).toBeInTheDocument();
         expect(screen.getByTestId('rainbow-button')).toBeInTheDocument();
+        // Añadido test para Footer
+        expect(screen.getByTestId('footer')).toBeInTheDocument();
     });
 
     it('renders the services section with correct title', () => {
