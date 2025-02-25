@@ -8,6 +8,7 @@ import { ShimmerButtonDemo } from "@/components/animatedButton2"
 import { MagicCardDemo } from "@/components/magicCard"
 import { RainbowButtonDemo } from "@/components/rainbowButton"
 import { DialogNewsletter } from "@/components/dialogButton"
+import { Footer } from "@/components/footer-component"
 
 export default function Page() {
   return (
@@ -92,7 +93,9 @@ export default function Page() {
             Agenda tu Consultoría Gratuita Ahora
           </RainbowButtonDemo>
         </div>
-
+      </section>
+      <section>
+        <Footer />
       </section>
 
 

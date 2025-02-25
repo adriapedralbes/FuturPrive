@@ -17,7 +17,7 @@ function DialogNewsletter() {
             <DialogTrigger asChild>
                 <ShimmerButtonDemo />
             </DialogTrigger>
-            <DialogContent className="bg-[#0a0a0a]">
+            <DialogContent className="bg-[#09090B] border border-[#27272A]">
                 <div className="mb-2 flex flex-col items-center gap-2">
                     <div
                         className="flex size-11 shrink-0 items-center justify-center rounded-full border border-gray-800"
