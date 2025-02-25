@@ -10,7 +10,7 @@ import { RainbowButtonDemo } from "@/components/rainbowButton"
 import { DialogNewsletter } from "@/components/dialogButton"
 import { Footer } from "@/components/footer-component"
 
-export default function Page() {
+export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Navigation */}
