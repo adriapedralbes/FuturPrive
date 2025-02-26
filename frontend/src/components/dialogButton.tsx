@@ -19,14 +19,11 @@ import { ShimmerButtonDemo } from "./animatedButton2";
 import { Button } from "./ui/button";
 
 function DialogNewsletter() {
-  // Añadimos estado para controlar la apertura/cierre del diálogo
   const [open, setOpen] = useState(false);
 
-  // Efecto para manejar la tecla Escape manualmente
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent): void => {
       if (e.key === "Escape" && open) {
-        // Cerrar el diálogo y forzar la re-renderización del botón
         setOpen(false);
       }
     };
@@ -40,7 +37,6 @@ function DialogNewsletter() {
     };
   }, [open]);
 
-  // Función para cerrar el diálogo
   const handleClose = () => {
     setOpen(false);
   };
@@ -48,12 +44,10 @@ function DialogNewsletter() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        {/* Usamos una clave única basada en el estado para forzar re-renderización */}
         <div key={`trigger-${open ? "open" : "closed"}`}>
           <ShimmerButtonDemo />
         </div>
       </DialogTrigger>
-      {/* Restauramos el DialogOverlay con blur */}
       <DialogOverlay className="fixed inset-0 bg-black/50 backdrop-blur-md" />
       <DialogContent
         className="bg-[#09090B] border border-[#27272A]"
@@ -90,7 +84,7 @@ function DialogNewsletter() {
             <div className="relative">
               <Input
                 id="dialog-subscribe"
-                className="peer ps-9 bg-[#0a0a0a] text-[#5b5b5b] border-gray-800 focus:border-white"
+                className="peer ps-9 bg-[#0a0a0a] text-white placeholder:text-[#5b5b5b] border-gray-800 focus:border-white shadow-sm shadow-gray-700"
                 placeholder="contacto@tuempresa.com"
                 type="email"
                 aria-label="Email"
@@ -101,7 +95,7 @@ function DialogNewsletter() {
             </div>
           </div>
           <Button type="button" className="w-full bg-white hover:bg-gray-200">
-            Subscribe
+            Subscríbete
           </Button>
         </form>
         <p className="text-center text-xs text-gray-400">
