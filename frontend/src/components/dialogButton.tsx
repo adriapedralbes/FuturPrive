@@ -1,7 +1,9 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import {
     Dialog,
     DialogContent,
+    DialogOverlay, // Volvemos a importar el overlay
     DialogDescription,
     DialogHeader,
     DialogTitle,
@@ -10,14 +12,51 @@ import {
 import { Input } from "@/components/ui/input";
 import { Mail } from "lucide-react";
 import { ShimmerButtonDemo } from "./animatedButton2";
+import { Button } from "./ui/button";
+import { useState, useEffect } from "react";
 
 function DialogNewsletter() {
+    // Añadimos estado para controlar la apertura/cierre del diálogo
+    const [open, setOpen] = useState(false);
+
+    // Efecto para manejar la tecla Escape manualmente
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent): void => {
+            if (e.key === "Escape" && open) {
+                // Cerrar el diálogo y forzar la re-renderización del botón
+                setOpen(false);
+            }
+        };
+
+        if (open) {
+            window.addEventListener("keydown", handleEscape);
+        }
+
+        return () => {
+            window.removeEventListener("keydown", handleEscape);
+        };
+    }, [open]);
+
+    // Función para cerrar el diálogo
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <ShimmerButtonDemo />
+                {/* Usamos una clave única basada en el estado para forzar re-renderización */}
+                <div key={`trigger-${open ? "open" : "closed"}`}>
+                    <ShimmerButtonDemo />
+                </div>
             </DialogTrigger>
-            <DialogContent className="bg-[#09090B] border border-[#27272A]">
+            {/* Restauramos el DialogOverlay con blur */}
+            <DialogOverlay className="fixed inset-0 bg-black/50 backdrop-blur-md" />
+            <DialogContent
+                className="bg-[#09090B] border border-[#27272A]"
+                onEscapeKeyDown={handleClose}
+                onInteractOutside={handleClose}
+            >
                 <div className="mb-2 flex flex-col items-center gap-2">
                     <div
                         className="flex size-11 shrink-0 items-center justify-center rounded-full border border-gray-800"
@@ -35,13 +74,14 @@ function DialogNewsletter() {
                         </svg>
                     </div>
                     <DialogHeader>
-                        <DialogTitle className="sm:text-center text-white">TOP 10 Automatizaciones</DialogTitle>
+                        <DialogTitle className="sm:text-center text-white">
+                            TOP 10 Automatizaciones
+                        </DialogTitle>
                         <DialogDescription className="sm:text-center text-gray-400">
                             Descarga <b>gratis</b> las mejores automatizaciones.
                         </DialogDescription>
                     </DialogHeader>
                 </div>
-
                 <form className="space-y-5">
                     <div className="space-y-2">
                         <div className="relative">
@@ -61,7 +101,6 @@ function DialogNewsletter() {
                         Subscribe
                     </Button>
                 </form>
-
                 <p className="text-center text-xs text-gray-400">
                     Al suscribirte aceptas nuestra{" "}
                     <a className="text-gray-400 underline hover:no-underline" href="#">
