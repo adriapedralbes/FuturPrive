@@ -1,21 +1,23 @@
 "use client"
 
+import { Facebook, Instagram, Linkedin, Send, Twitter } from "lucide-react"
+import Link from "next/link"
 import * as React from "react"
+
 import { Button } from "@/components/ui/Footer/button"
 import { Input } from "@/components/ui/Footer/input"
-import { Label } from "@/components/ui/Footer/label"
-import { Textarea } from "@/components/ui/Footer/textarea"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/Footer/tooltip"
-import { Facebook, Instagram, Linkedin, Moon, Send, Sun, Twitter } from "lucide-react"
+
 
 function Footerdemo() {
-  const [isDarkMode, setIsDarkMode] = React.useState(true)
-  const [isChatOpen, setIsChatOpen] = React.useState(false)
+  const [_isDarkMode, _setIsDarkMode] = React.useState(true)
+  const [_isChatOpen, _setIsChatOpen] = React.useState(false)
+
 
   return (
     <footer className="relative border-t bg-background text-foreground transition-colors duration-300">
@@ -46,21 +48,22 @@ function Footerdemo() {
           <div>
             <h3 className="mb-4 text-lg font-semibold">Enlaces Rápidos</h3>
             <nav className="space-y-2 text-sm">
-              <a href="#" className="block transition-colors hover:text-primary">
+              {/* Corregir enlaces vacíos, ejemplo para el primero: */}
+              <Link href="/home" className="block transition-colors hover:text-primary">
                 Inicio
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
+              </Link>
+              <Link href="/about" className="block transition-colors hover:text-primary">
                 Sobre Nosotros
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
+              </Link>
+              <Link href="/services" className="block transition-colors hover:text-primary">
                 Servicios
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
+              </Link>
+              <Link href="/products" className="block transition-colors hover:text-primary">
                 Productos
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
+              </Link>
+              <Link href="/contact" className="block transition-colors hover:text-primary">
                 Contacto
-              </a>
+              </Link>
             </nav>
           </div>
           <div>
@@ -135,15 +138,15 @@ function Footerdemo() {
             © 2024 Tu Empresa. Todos los derechos reservados.
           </p>
           <nav className="flex gap-4 text-sm">
-            <a href="#" className="transition-colors hover:text-primary">
+            <Link href="/privacy" className="transition-colors hover:text-primary">
               Política de Privacidad
-            </a>
-            <a href="#" className="transition-colors hover:text-primary">
+            </Link>
+            <Link href="/terms" className="transition-colors hover:text-primary">
               Términos de Servicio
-            </a>
-            <a href="#" className="transition-colors hover:text-primary">
+            </Link>
+            <Link href="/cookies" className="transition-colors hover:text-primary">
               Configuración de Cookies
-            </a>
+            </Link>
           </nav>
         </div>
       </div>

@@ -1,19 +1,23 @@
 "use client";
 
+import { Mail } from "lucide-react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+
 import {
     Dialog,
     DialogContent,
-    DialogOverlay, // Volvemos a importar el overlay
+    DialogOverlay,
     DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Mail } from "lucide-react";
+
 import { ShimmerButtonDemo } from "./animatedButton2";
 import { Button } from "./ui/button";
-import { useState, useEffect } from "react";
+
 
 function DialogNewsletter() {
     // Añadimos estado para controlar la apertura/cierre del diálogo
@@ -103,9 +107,12 @@ function DialogNewsletter() {
                 </form>
                 <p className="text-center text-xs text-gray-400">
                     Al suscribirte aceptas nuestra{" "}
-                    <a className="text-gray-400 underline hover:no-underline" href="#">
+                    <Link
+                        href="/privacy"
+                        className="text-gray-400 underline hover:no-underline"
+                    >
                         Política de Privacidad
-                    </a>
+                    </Link>
                     .
                 </p>
             </DialogContent>

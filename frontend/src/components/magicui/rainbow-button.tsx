@@ -1,10 +1,10 @@
-import React from "react";
+import { forwardRef } from "react";
+
 import { cn } from "@/lib/utils";
 
-interface RainbowButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+type RainbowButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export const RainbowButton = React.forwardRef<
+export const RainbowButton = forwardRef<
   HTMLButtonElement,
   RainbowButtonProps
 >(({ children, className, ...props }, ref) => {

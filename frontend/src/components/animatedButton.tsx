@@ -1,7 +1,7 @@
 // animatedButton.tsx
-import { cn } from "@/lib/utils";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { ShineBorder } from "@/components/magicui/shine-border";
+import { cn } from "@/lib/utils";
 
 interface AnimatedButtonProps {
   children: React.ReactNode;

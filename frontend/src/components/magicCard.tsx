@@ -1,8 +1,9 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { MagicCard } from "@/components/magicui/magic-card";
 import { Upload, Wand2, Download } from "lucide-react";
+import { useTheme } from "next-themes";
+
+import { MagicCard } from "@/components/magicui/magic-card";
 
 export function MagicCardDemo() {
   const { theme } = useTheme();

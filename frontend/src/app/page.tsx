@@ -1,13 +1,14 @@
-import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { VideoPresentation } from "@/components/video-presentation"
+import Link from "next/link"
+
 import { AnimatedButton } from "@/components/animatedButton"
-import { BentoDemo } from "@/components/our-services"
-import { MagicCardDemo } from "@/components/magicCard"
-import { RainbowButtonDemo } from "@/components/rainbowButton"
 import { DialogNewsletter } from "@/components/dialogButton"
 import { Footer } from "@/components/footer-component"
+import { MagicCardDemo } from "@/components/magicCard"
+import { BentoDemo } from "@/components/our-services"
+import { RainbowButtonDemo } from "@/components/rainbowButton"
+import { Button } from "@/components/ui/button"
+import { VideoPresentation } from "@/components/video-presentation"
 
 export default function Home() {
   return (

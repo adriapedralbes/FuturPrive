@@ -1,5 +1,6 @@
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { ArrowRightIcon } from "lucide-react";
+
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 export function ShimmerButtonDemo() {
   return (

@@ -1,5 +1,6 @@
-import { ShineBorder } from "./magicui/shine-border"
 import { cn } from "@/lib/utils"
+
+import { ShineBorder } from "./magicui/shine-border"
 
 export function VideoPresentation() {
   return (

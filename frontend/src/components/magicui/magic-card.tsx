@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, useMotionTemplate, useMotionValue } from "motion/react";
-import React, { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-interface MagicCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MagicCardProps extends HTMLAttributes<HTMLDivElement> {
   gradientSize?: number;
   gradientColor?: string;
   gradientOpacity?: number;
