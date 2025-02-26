@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-import { ShineBorder } from "./magicui/shine-border"
+import { ShineBorder } from "./magicui/shine-border";
 
 export function VideoPresentation() {
   return (
@@ -15,9 +15,13 @@ export function VideoPresentation() {
           borderRadius={32}
           borderWidth={3}
           duration={14}
-          color={["rgba(255,255,255,0.15)", "#ffffffaa", "rgba(255,255,255,0.3)"]}
+          color={[
+            "rgba(255,255,255,0.15)",
+            "#ffffffaa",
+            "rgba(255,255,255,0.3)",
+          ]}
           className={cn(
-            "min-h-0 min-w-0 bg-neutral-800/50 p-3 rounded-[32px] border-white/5"
+            "min-h-0 min-w-0 bg-neutral-800/50 p-3 rounded-[32px] border-white/5",
           )}
         >
           {/* Borde gris exterior */}

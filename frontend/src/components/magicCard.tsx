@@ -10,20 +10,28 @@ export function MagicCardDemo() {
 
   const cards = [
     {
-      icon: <Upload className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />,
+      icon: (
+        <Upload className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />
+      ),
       title: "Agenda tu consulta",
-      description: "Agenda tu consulta gratuita y te mostramos cómo impulsar tu proyecto con tecnología."
+      description:
+        "Agenda tu consulta gratuita y te mostramos cómo impulsar tu proyecto con tecnología.",
     },
     {
-      icon: <Wand2 className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />,
+      icon: (
+        <Wand2 className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />
+      ),
       title: "Planificar Soluciones",
-      description: "Planificamos y automatizamos procesos para reducir costes y maximizar beneficios."
+      description:
+        "Planificamos y automatizamos procesos para reducir costes y maximizar beneficios.",
     },
     {
-      icon: <Download className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />,
+      icon: (
+        <Download className="w-8 h-8 mb-4 text-white transition-colors duration-300 group-hover:text-purple-400" />
+      ),
       title: "Implementar automatización",
-      description: "Implementamos soluciones personalizadas para tu proyecto."
-    }
+      description: "Implementamos soluciones personalizadas para tu proyecto.",
+    },
   ];
 
   return (
@@ -41,8 +49,6 @@ export function MagicCardDemo() {
           <div className="absolute top-4 right-4 flex items-center justify-center w-10 h-10 rounded-full border border-gray-500/30 text-white text-xl font-bold transition-colors duration-300 group-hover:border-purple-500/80">
             {index + 1}
           </div>
-
-
 
           <div className="flex flex-col items-start">
             {card.icon}

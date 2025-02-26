@@ -1,14 +1,14 @@
-import { ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
-import { AnimatedButton } from "@/components/animatedButton"
-import { DialogNewsletter } from "@/components/dialogButton"
-import { Footer } from "@/components/footer-component"
-import { MagicCardDemo } from "@/components/magicCard"
-import { BentoDemo } from "@/components/our-services"
-import { RainbowButtonDemo } from "@/components/rainbowButton"
-import { Button } from "@/components/ui/button"
-import { VideoPresentation } from "@/components/video-presentation"
+import { AnimatedButton } from "@/components/animatedButton";
+import { DialogNewsletter } from "@/components/dialogButton";
+import { Footer } from "@/components/footer-component";
+import { MagicCardDemo } from "@/components/magicCard";
+import { BentoDemo } from "@/components/our-services";
+import { RainbowButtonDemo } from "@/components/rainbowButton";
+import { Button } from "@/components/ui/button";
+import { VideoPresentation } from "@/components/video-presentation";
 
 export default function Home() {
   return (
@@ -30,8 +30,10 @@ export default function Home() {
           </div>
           {/* Heading */}
           <h1 className="mb-6 text-5xl font-bold tracking-tight lg:text-5xl">
-            Soluciones IA personalizadas. <br /> Reducen Costes y Maximizan {" "}
-            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Beneficio</span>
+            Soluciones IA personalizadas. <br /> Reducen Costes y Maximizan{" "}
+            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+              Beneficio
+            </span>
           </h1>
 
           {/* Subtitle */}
@@ -59,7 +61,7 @@ export default function Home() {
             <VideoPresentation />
           </div>
         </div>
-      </main >
+      </main>
       <section className="mx-auto max-w-[1400px] text-center">
         <AnimatedButton>Tendencias</AnimatedButton>
         <div>
@@ -67,9 +69,10 @@ export default function Home() {
             Nuestros Servicios
           </h1>
           <p className="mt-5 text-lg text-gray-400">
-            Acompañamos a tu proyecto en la implementación, desarrollo
-            de tecnologías IA y soluciones de automatización, <br />asegurando una transición fluida desde inicio
-            hasta el despliegue y el logro de resultados tangibles.
+            Acompañamos a tu proyecto en la implementación, desarrollo de
+            tecnologías IA y soluciones de automatización, <br />
+            asegurando una transición fluida desde inicio hasta el despliegue y
+            el logro de resultados tangibles.
           </p>
         </div>
         <BentoDemo />
@@ -83,7 +86,8 @@ export default function Home() {
             en 3 pasos
           </h1>
           <p className="mt-5 text-lg text-gray-400">
-            Agenda tu llamada, obten recomendación y recibe tu solución.<br />
+            Agenda tu llamada, obten recomendación y recibe tu solución.
+            <br />
             Nuestro equipo de expertos te acompañará en cada paso.
           </p>
         </div>
@@ -97,8 +101,6 @@ export default function Home() {
       <section>
         <Footer />
       </section>
-
-
-    </div >
-  )
+    </div>
+  );
 }

@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
   memo,
-  Children
+  Children,
 } from "react";
 
 import { cn } from "@/lib/utils";
@@ -71,7 +71,7 @@ export const AnimatedList = memo(
         </AnimatePresence>
       </div>
     );
-  }
+  },
 );
 
 AnimatedList.displayName = "AnimatedList";

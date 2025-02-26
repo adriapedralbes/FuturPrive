@@ -79,7 +79,7 @@ export function MagicCard({
       // Asegúrate de incluir "magic-card" para que tome tu CSS global
       className={cn(
         "magic-card group relative flex size-full rounded-xl border border-white/10",
-        className
+        className,
       )}
     >
       <div className="absolute inset-px z-10 rounded-xl bg-background" />
