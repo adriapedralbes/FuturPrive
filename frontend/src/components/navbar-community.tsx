@@ -1,15 +1,16 @@
 "use client";
 
-import { Home, User, Briefcase, FileText } from "lucide-react";
+import { Users, GraduationCap, Calendar, User, Trophy } from "lucide-react";
 
 import { NavBar } from "@/components/ui/Community/tubelight-navbar";
 
-export function NavBarDemo() {
+export function NavBarCommunity() {
   const navItems = [
-    { name: "Home", url: "/", icon: Home },
-    { name: "About", url: "#", icon: User },
-    { name: "Projects", url: "#", icon: Briefcase },
-    { name: "Resume", url: "#", icon: FileText },
+    { name: "Comunidad", url: "/", icon: Users },
+    { name: "Classroom", url: "#", icon: GraduationCap },
+    { name: "Calendario", url: "#", icon: Calendar },
+    { name: "Miembros", url: "#", icon: User },
+    { name: "Ranking", url: "#", icon: Trophy },
   ];
 
   return <NavBar items={navItems} />;

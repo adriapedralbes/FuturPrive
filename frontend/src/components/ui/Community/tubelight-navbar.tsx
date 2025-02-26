@@ -73,7 +73,7 @@ export function NavBar({ items, className }: NavBarProps) {
                 >
                   {/* Glow effect on active tab */}
                   <motion.div
-                    className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-white rounded-t-full"
+                    className="absolute -top-2 left-0 right-0 mx-auto w-8 h-1 bg-white rounded-t-full"
                     layoutId="glow"
                     animate={{
                       boxShadow: [
@@ -93,9 +93,9 @@ export function NavBar({ items, className }: NavBarProps) {
                       },
                     }}
                   >
-                    <div className="absolute w-12 h-6 bg-white/30 rounded-full blur-md -top-2 -left-2" />
-                    <div className="absolute w-8 h-6 bg-white/40 rounded-full blur-md -top-1" />
-                    <div className="absolute w-4 h-4 bg-white/50 rounded-full blur-sm top-0 left-2" />
+                    <div className="absolute w-12 h-6 bg-white/30 rounded-full blur-md -top-2 left-1/2 -translate-x-1/2" />
+                    <div className="absolute w-8 h-6 bg-white/40 rounded-full blur-md -top-1 left-1/2 -translate-x-1/2" />
+                    <div className="absolute w-4 h-4 bg-white/50 rounded-full blur-sm top-0 left-1/2 -translate-x-1/2" />
                   </motion.div>
                 </motion.div>
               )}
