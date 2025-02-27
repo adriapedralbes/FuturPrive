@@ -1,8 +1,12 @@
-import { cn } from "@/lib/utils";
+"use client";
 
+import { cn } from "@/lib/utils";
 import { ShineBorder } from "./magicui/shine-border";
+import { useState, useEffect } from "react";
 
 export function VideoPresentation() {
+  const [videoError, setVideoError] = useState(false);
+
   return (
     <div className="relative mt-16">
       {/* Gradient background blur */}
@@ -22,21 +26,34 @@ export function VideoPresentation() {
           ]}
           className={cn(
             "min-h-0 min-w-0 bg-neutral-800/50 p-3 rounded-[32px] border-white/5",
+            "w-full max-w-4xl"
           )}
         >
           {/* Borde gris exterior */}
           {/* Borde negro interior */}
-          <div className="rounded-[24px] bg-black p-2">
-            <video
-              className="w-full h-auto rounded-2xl"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/videos/loop-demo.mp4" type="video/mp4" />
-              Tu navegador no soporta la reproducción de video.
-            </video>
+          <div className="rounded-[24px] bg-black p-2 w-full">
+            {!videoError ? (
+              <video
+                className="w-full h-auto rounded-2xl"
+                autoPlay
+                loop
+                muted
+                playsInline
+                onError={() => setVideoError(true)}
+                style={{ display: "block", minHeight: "300px" }}
+              >
+                <source src="/videos/loop-demo.mp4" type="video/mp4" />
+                Tu navegador no soporta la reproducción de video.
+              </video>
+            ) : (
+              // Fallback para cuando hay error de video
+              <div
+                className="w-full rounded-2xl bg-neutral-900 flex items-center justify-center"
+                style={{ minHeight: "300px" }}
+              >
+                <p className="text-gray-400">Video no disponible en este navegador</p>
+              </div>
+            )}
           </div>
         </ShineBorder>
       </div>
