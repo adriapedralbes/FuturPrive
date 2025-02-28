@@ -48,9 +48,12 @@ export default function Home() {
             variant="white"
             size="lg"
             className="gap-2 font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300"
+            asChild
           >
-            Agenda tu Consultoría Gratuita Ahora
-            <ArrowRight className="h-4 w-4" />
+            <Link href="/comunidad">
+              Agenda tu Consultoría Gratuita Ahora
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
           {/* Dashboard Preview */}
           <div className="relative mt-16">
