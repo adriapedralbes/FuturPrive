@@ -1,9 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, User, Settings, LogOut } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { cn } from "@/lib/utils";
 
@@ -39,7 +48,7 @@ export function NavBar({ items, className }: NavBarProps) {
         className,
       )}
     >
-      <div className="flex items-center gap-3 bg-gray-900/30 border border-gray-800 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+      <div className="relative flex items-center gap-3 bg-gray-900/30 border border-gray-800 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.name;
@@ -102,6 +111,35 @@ export function NavBar({ items, className }: NavBarProps) {
             </Link>
           );
         })}
+
+        {/* Avatar con dropdown menu */}
+        <div className="ml-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="cursor-pointer hover:ring-2 hover:ring-gray-400 transition-all">
+                <AvatarImage src="https://github.com/shadcn.png" alt="Foto de perfil" />
+                <AvatarFallback>Adri</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 bg-gray-900/90 backdrop-blur-lg border-gray-800 text-white">
+              <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-gray-800" />
+              <DropdownMenuItem className="cursor-pointer hover:bg-gray-800 focus:bg-gray-800 transition-colors">
+                <User className="mr-2 h-4 w-4" />
+                <span>Perfil</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer hover:bg-gray-800 focus:bg-gray-800 transition-colors">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Configuración</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-gray-800" />
+              <DropdownMenuItem className="cursor-pointer text-red-500 hover:bg-red-900/40 focus:bg-red-900/40 transition-colors">
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Cerrar sesión</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
     </div>
   );
