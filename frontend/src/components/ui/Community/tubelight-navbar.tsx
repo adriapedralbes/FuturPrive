@@ -61,7 +61,7 @@ export function NavBar({ items, className }: NavBarProps) {
   return (
     <div
       className={cn(
-        "fixed top-0 left-1/2 -translate-x-1/2 z-10 sm:pt-6 w-[calc(100%-32px)] sm:w-[calc(100%-16px)] md:w-auto will-change-transform",
+        "fixed top-0 left-1/2 -translate-x-1/2 z-50 sm:pt-6 w-[calc(100%-32px)] sm:w-[calc(100%-16px)] md:w-auto will-change-transform",
         className,
       )}
       style={{ transform: 'translateX(-50%)', transition: 'none' }}
