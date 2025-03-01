@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
+
 import { cn } from "@/lib/utils";
+
 import { ShineBorder } from "./magicui/shine-border";
-import { useState, useEffect } from "react";
 
 export function VideoPresentation() {
   const [videoError, setVideoError] = useState(false);

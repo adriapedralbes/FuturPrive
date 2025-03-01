@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { LucideIcon, User, Settings, LogOut } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -13,7 +14,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -44,7 +44,7 @@ export function NavBar({ items, className }: NavBarProps) {
   return (
     <div
       className={cn(
-        "fixed bottom-0 sm:top-0 left-1/2 -translate-x-1/2 z-50 mb-6 sm:pt-6",
+        "fixed top-0 left-1/2 -translate-x-1/2 z-10 sm:pt-6",
         className,
       )}
     >

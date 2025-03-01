@@ -40,3 +40,12 @@
   /* Ajuste del color de la sombra a morado */
   box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
 }
+
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
