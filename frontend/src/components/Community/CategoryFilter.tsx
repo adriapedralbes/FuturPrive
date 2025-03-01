@@ -84,23 +84,50 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
                 </button>
 
                 {showDropdown && (
-                    <div className="absolute top-12 left-0 right-0 bg-zinc-900 rounded-lg shadow-lg z-10 py-2">
-                        {categories.map((category) => (
-                            <button
-                                key={category.id}
-                                className={`flex items-center gap-2 px-4 py-2 w-full text-left ${activeCategory === category.id
-                                    ? 'bg-zinc-700 text-white'
-                                    : 'text-zinc-400 hover:bg-zinc-800'
-                                    }`}
-                                onClick={() => {
-                                    onCategoryChange(category.id);
-                                    setShowDropdown(false);
-                                }}
-                            >
-                                {category.icon && <span>{category.icon}</span>}
-                                {category.label}
-                            </button>
-                        ))}
+                    <div className="absolute top-12 left-0 right-0 bg-zinc-900 rounded-lg shadow-lg z-10">
+                        {/* Sección de categorías */}
+                        <div className="py-2">
+                            {categories.map((category) => (
+                                <button
+                                    key={category.id}
+                                    className={`flex items-center gap-2 px-4 py-2 w-full text-left ${activeCategory === category.id
+                                        ? 'bg-zinc-700 text-white'
+                                        : 'text-zinc-400 hover:bg-zinc-800'
+                                        }`}
+                                    onClick={() => {
+                                        onCategoryChange(category.id);
+                                        setShowDropdown(false);
+                                    }}
+                                >
+                                    {category.icon && <span>{category.icon}</span>}
+                                    {category.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Separador */}
+                        <div className="border-t border-zinc-700 mx-2"></div>
+
+                        {/* Sección de ordenamiento */}
+                        <div className="py-2">
+                            <div className="px-4 py-1 text-xs text-zinc-500 uppercase">Ordenar por</div>
+                            {sortTypes.map((sort) => (
+                                <button
+                                    key={sort.id}
+                                    className={`flex items-center gap-2 px-4 py-2 w-full text-left ${activeSortType === sort.id
+                                        ? 'bg-amber-500/30 text-amber-500'
+                                        : 'text-zinc-300 hover:bg-zinc-800'
+                                        }`}
+                                    onClick={() => {
+                                        setActiveSortType(sort.id);
+                                        setShowDropdown(false);
+                                    }}
+                                >
+                                    {sort.icon}
+                                    {sort.label}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>
