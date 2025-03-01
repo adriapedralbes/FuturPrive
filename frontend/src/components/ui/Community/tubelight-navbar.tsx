@@ -29,7 +29,7 @@ interface NavBarProps {
 
 export function NavBar({ items, className }: NavBarProps) {
   const [activeTab, setActiveTab] = useState(items[0].name);
-  const [_isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,11 +44,11 @@ export function NavBar({ items, className }: NavBarProps) {
   return (
     <div
       className={cn(
-        "fixed top-0 left-1/2 -translate-x-1/2 z-10 sm:pt-6",
+        "fixed top-0 left-1/2 -translate-x-1/2 z-10 sm:pt-6 w-[calc(100%-32px)] sm:w-[calc(100%-16px)] md:w-auto",
         className,
       )}
     >
-      <div className="relative flex items-center gap-3 bg-gray-900/30 border border-gray-800 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+      <div className="relative flex items-center justify-around sm:justify-start sm:gap-3 bg-gray-900/30 border border-gray-800 backdrop-blur-lg py-1 px-1 sm:px-1 rounded-full shadow-lg">
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.name;
@@ -59,7 +59,7 @@ export function NavBar({ items, className }: NavBarProps) {
               href={item.url}
               onClick={() => setActiveTab(item.name)}
               className={cn(
-                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
+                "relative cursor-pointer text-sm font-semibold px-3 sm:px-4 md:px-6 py-2 rounded-full transition-colors",
                 "text-foreground/80 hover:text-primary",
                 isActive && "bg-gray-800/50 text-primary",
               )}
@@ -113,7 +113,7 @@ export function NavBar({ items, className }: NavBarProps) {
         })}
 
         {/* Avatar con dropdown menu */}
-        <div className="ml-2">
+        <div className="ml-0 sm:ml-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer hover:ring-2 hover:ring-gray-400 transition-all">

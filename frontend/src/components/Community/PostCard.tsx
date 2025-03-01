@@ -37,7 +37,7 @@ export const PostCard: React.FC<PostCardProps> = ({
     const body = contentLines.slice(1).join('\n');
 
     return (
-        <div className={`bg-zinc-800 rounded-lg p-4 my-3 ${isPinned ? 'border-l-4 border-amber-500' : ''}`}>
+        <div className={`bg-zinc-800 rounded-lg p-4 my-3 mx-4 sm:mx-2 md:mx-0 ${isPinned ? 'border-l-4 border-amber-500' : ''}`}>
             <UserBadge
                 username={author.username}
                 level={author.level}

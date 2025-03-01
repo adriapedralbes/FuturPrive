@@ -1,9 +1,27 @@
 import { User, Paperclip, Link2, Video, BarChart2, Smile } from 'lucide-react';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 export const WritePostComponent: React.FC = () => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const componentRef = useRef<HTMLDivElement>(null);
+
+    // Detectar si estamos en vista móvil
+    useEffect(() => {
+        const checkIfMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        // Verificar al inicio
+        checkIfMobile();
+
+        // Verificar al cambiar el tamaño de la ventana
+        window.addEventListener('resize', checkIfMobile);
+
+        return () => {
+            window.removeEventListener('resize', checkIfMobile);
+        };
+    }, []);
 
     const handleExpand = () => {
         setIsExpanded(true);
@@ -25,7 +43,7 @@ export const WritePostComponent: React.FC = () => {
             {/* Overlay que cubre todo menos el navbar */}
             {isExpanded && (
                 <div
-                    className="fixed inset-0 bg-black/60 z-30 pt-20"
+                    className={`fixed inset-0 bg-black/60 z-30 ${isMobile ? 'pt-16' : 'pt-20'}`}
                     onClick={handleOverlayClick}
                 />
             )}
@@ -33,7 +51,7 @@ export const WritePostComponent: React.FC = () => {
             {/* Componente de escritura que se expande naturalmente y desplaza el contenido inferior */}
             <div
                 ref={componentRef}
-                className={`relative z-40 mb-6 ${isExpanded ? 'bg-zinc-900 rounded-lg shadow-xl' : 'bg-zinc-800/50 rounded-lg p-3'}`}
+                className={`relative z-40 mb-6 mx-4 sm:mx-2 md:mx-0 ${isExpanded ? 'bg-zinc-900 rounded-lg shadow-xl' : 'bg-zinc-800/50 rounded-lg p-3'}`}
             >
                 {!isExpanded ? (
                     // Versión colapsada - solo muestra el avatar y el botón para escribir
@@ -81,8 +99,8 @@ export const WritePostComponent: React.FC = () => {
                         </div>
 
                         {/* Barra de herramientas */}
-                        <div className="flex items-center">
-                            <div className="flex space-x-2">
+                        <div className="flex flex-wrap items-center">
+                            <div className="flex flex-wrap space-x-2 mb-2 sm:mb-0">
                                 <button className="p-2 text-zinc-400 hover:bg-zinc-700 rounded-full transition-colors">
                                     <Paperclip size={20} />
                                 </button>
@@ -103,7 +121,7 @@ export const WritePostComponent: React.FC = () => {
                                 </button>
                             </div>
 
-                            <div className="ml-auto flex items-center gap-3">
+                            <div className="ml-auto flex flex-wrap items-center gap-3 w-full sm:w-auto mt-3 sm:mt-0">
                                 <div className="relative">
                                     <button className="px-3 py-1.5 text-zinc-400 bg-zinc-800 rounded-lg flex items-center gap-2 text-sm">
                                         Select a category <span className="ml-1">▼</span>

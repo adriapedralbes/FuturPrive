@@ -24,7 +24,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
     const activeItem = categories.find(cat => cat.id === activeCategory) || categories[0];
 
     return (
-        <div className="mb-4">
+        <div className="mb-4 mx-4 sm:mx-2 md:mx-0">
             {/* Vista móvil - Dropdown */}
             <div className="flex md:hidden flex-col relative">
                 <button
@@ -44,8 +44,8 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
                             <button
                                 key={category.id}
                                 className={`flex items-center gap-2 px-4 py-2 w-full text-left ${activeCategory === category.id
-                                        ? 'bg-zinc-700 text-white'
-                                        : 'text-zinc-400 hover:bg-zinc-800'
+                                    ? 'bg-zinc-700 text-white'
+                                    : 'text-zinc-400 hover:bg-zinc-800'
                                     }`}
                                 onClick={() => {
                                     onCategoryChange(category.id);
@@ -66,8 +66,8 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
                     <button
                         key={category.id}
                         className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${activeCategory === category.id
-                                ? 'bg-zinc-700 text-white'
-                                : 'bg-zinc-800/60 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                            ? 'bg-zinc-700 text-white'
+                            : 'bg-zinc-800/60 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
                             }`}
                         onClick={() => onCategoryChange(category.id)}
                     >

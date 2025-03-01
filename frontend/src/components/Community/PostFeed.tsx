@@ -16,7 +16,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({ posts, filter = 'all' }) => 
         : posts.filter(post => post.categoryId === filter);
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 mx-4 sm:mx-2 md:mx-0">
             {filteredPosts.map((post) => (
                 <PostCard
                     key={post.id}

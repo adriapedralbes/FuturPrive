@@ -1,5 +1,4 @@
 import { Trophy } from 'lucide-react';
-
 import React, { useState } from 'react';
 
 import { Post } from '@/types/Post';
@@ -18,7 +17,7 @@ export const PinnedPostsSection: React.FC<PinnedPostsSectionProps> = ({ pinnedPo
     }
 
     return (
-        <div className="mb-4">
+        <div className="mb-4 mx-4 sm:mx-2 md:mx-0">
             <div className="bg-amber-800/20 rounded-t-lg px-4 py-2 flex items-center justify-between border-l-4 border-amber-500">
                 <div className="flex items-center gap-2 text-amber-500">
                     <Trophy size={16} />
