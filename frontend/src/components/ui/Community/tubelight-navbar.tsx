@@ -5,7 +5,6 @@ import { LucideIcon, User, Settings, LogOut } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -62,12 +61,12 @@ export function NavBar({ items, className }: NavBarProps) {
   return (
     <div
       className={cn(
-        "fixed top-0 left-1/2 -translate-x-1/2 z-50 sm:pt-6 w-[calc(100%-32px)] sm:w-[calc(100%-16px)] md:w-auto will-change-transform",
+        "fixed top-0 left-1/2 -translate-x-1/2 z-10 sm:pt-6 w-[calc(100%-32px)] sm:w-[calc(100%-16px)] md:w-auto will-change-transform",
         className,
       )}
       style={{ transform: 'translateX(-50%)', transition: 'none' }}
     >
-      <div className="relative flex items-center justify-around sm:justify-start sm:gap-3 bg-gray-900/30 border border-white/10 backdrop-blur-lg py-1 px-1 sm:px-1 rounded-full shadow-lg">
+      <div className="relative flex items-center justify-around sm:justify-start sm:gap-3 bg-[#1f1f1e]/80 border border-white/10 backdrop-blur-lg py-1 px-1 sm:px-1 rounded-full shadow-lg">
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = item.active;
@@ -78,8 +77,9 @@ export function NavBar({ items, className }: NavBarProps) {
               href={item.url}
               className={cn(
                 "relative cursor-pointer text-sm font-semibold px-3 sm:px-4 md:px-6 py-2 rounded-full transition-colors",
-                "text-foreground/80 hover:text-primary",
-                isActive && "bg-gray-800/50 text-primary",
+                isActive
+                  ? "bg-[#323230]/80 text-white"
+                  : "text-zinc-400 hover:text-zinc-200"
               )}
             >
               <span className="hidden md:inline">{item.name}</span>
@@ -89,7 +89,7 @@ export function NavBar({ items, className }: NavBarProps) {
               {isActive && (
                 <motion.div
                   layoutId="lamp"
-                  className="absolute inset-0 w-full bg-gray-800/50 rounded-full -z-10"
+                  className="absolute inset-0 w-full bg-[#323230]/80 rounded-full -z-10"
                   initial={false}
                   animate={{ opacity: 1 }}
                   transition={{
@@ -98,7 +98,7 @@ export function NavBar({ items, className }: NavBarProps) {
                     damping: 28,
                   }}
                 >
-                  {/* Glow effect on active tab */}
+                  {/* Glow effect on active tab - mantiene la misma configuración */}
                   <motion.div
                     className="absolute -top-2 left-0 right-0 mx-auto w-8 h-1 bg-white rounded-t-full"
                     layoutId="glow"
@@ -134,7 +134,7 @@ export function NavBar({ items, className }: NavBarProps) {
         <div className="ml-0 sm:ml-2 relative" ref={dropdownRef}>
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center justify-center overflow-hidden rounded-full w-10 h-10 hover:ring-2 hover:ring-white/30 transition-all bg-zinc-700 border border-white/10"
+            className="flex items-center justify-center overflow-hidden rounded-full w-10 h-10 hover:ring-2 hover:ring-white/30 transition-all bg-[#323230] border border-white/10"
           >
             <img
               src="https://github.com/shadcn.png"

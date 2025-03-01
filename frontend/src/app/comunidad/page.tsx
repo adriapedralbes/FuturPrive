@@ -20,7 +20,7 @@ export default function CommunityPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#1f1f1e] text-white py-6">
       {/* Barra de navegación en la parte superior */}
-      <div className="w-full h-16 sm:h-20 ">
+      <div className="w-full h-16 sm:h-20">
         <NavBarCommunity />
       </div>
 
