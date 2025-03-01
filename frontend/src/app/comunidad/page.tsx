@@ -2,19 +2,42 @@
 
 import { useState } from 'react';
 import { NavBarCommunity } from "@/components/Community/NavbarCommunity";
-import { WritePostComponent } from "@/components/Community/WritePostComponent";
+import { WritePostComponent } from "@/components/Community/Posts/WritePostComponent";
 import { CategoryFilter } from "@/components/Community/CategoryFilter";
-import { PinnedPostsSection } from "@/components/Community/PinnedPostsSection";
-import { PostFeed } from "@/components/Community/PostFeed";
+import { PinnedPostsSection } from "@/components/Community/Posts/PinnedPostsSection";
+import { PostFeed } from "@/components/Community/Posts/PostFeed";
 import { LeaderboardWidget } from "@/components/Community/LeaderboardWidget";
+import { PostDetailModal } from "@/components/Community/Posts/PostDetailModal";
 import { pinnedPosts, regularPosts } from "@/mockData";
 import { topUsers } from "@/leaderboardData";
+import { Post } from "@/types/Post";
 
 export default function CommunityPage() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
+  };
+
+  const handlePostClick = (postId: string) => {
+    // Buscar primero en posts fijados
+    let post = pinnedPosts.find(p => p.id === postId);
+
+    // Si no está en los fijados, buscar en los regulares
+    if (!post) {
+      post = regularPosts.find(p => p.id === postId);
+    }
+
+    if (post) {
+      setSelectedPost(post);
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -42,10 +65,10 @@ export default function CommunityPage() {
             />
 
             {/* Publicaciones fijadas */}
-            <PinnedPostsSection pinnedPosts={pinnedPosts} />
+            <PinnedPostsSection pinnedPosts={pinnedPosts} onPostClick={handlePostClick} />
 
             {/* Feed de publicaciones */}
-            <PostFeed posts={regularPosts} filter={activeCategory} />
+            <PostFeed posts={regularPosts} filter={activeCategory} onPostClick={handlePostClick} />
           </div>
 
           {/* Columna lateral (derecha) - oculta en móvil */}
@@ -57,6 +80,13 @@ export default function CommunityPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal de detalle del post */}
+      <PostDetailModal
+        post={selectedPost}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 }

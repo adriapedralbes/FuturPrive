@@ -7,9 +7,10 @@ import { PostCard } from './PostCard';
 interface PostFeedProps {
     posts: Post[];
     filter?: string;
+    onPostClick: (postId: string) => void;
 }
 
-export const PostFeed: React.FC<PostFeedProps> = ({ posts, filter = 'all' }) => {
+export const PostFeed: React.FC<PostFeedProps> = ({ posts, filter = 'all', onPostClick }) => {
     // Filtrar posts según la categoría seleccionada
     const filteredPosts = filter === 'all'
         ? posts
@@ -28,6 +29,7 @@ export const PostFeed: React.FC<PostFeedProps> = ({ posts, filter = 'all' }) => 
                     likes={post.likes}
                     comments={post.comments}
                     imageUrl={post.imageUrl}
+                    onPostClick={onPostClick}
                 />
             ))}
         </div>

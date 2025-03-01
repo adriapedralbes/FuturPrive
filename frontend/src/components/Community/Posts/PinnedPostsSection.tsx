@@ -7,9 +7,10 @@ import { PostCard } from './PostCard';
 
 interface PinnedPostsSectionProps {
     pinnedPosts: Post[];
+    onPostClick: (postId: string) => void;
 }
 
-export const PinnedPostsSection: React.FC<PinnedPostsSectionProps> = ({ pinnedPosts }) => {
+export const PinnedPostsSection: React.FC<PinnedPostsSectionProps> = ({ pinnedPosts, onPostClick }) => {
     const [isVisible, setIsVisible] = useState(true);
 
     if (!isVisible || pinnedPosts.length === 0) {
@@ -43,6 +44,7 @@ export const PinnedPostsSection: React.FC<PinnedPostsSectionProps> = ({ pinnedPo
                         comments={post.comments}
                         isPinned={true}
                         imageUrl={post.imageUrl}
+                        onPostClick={onPostClick}
                     />
                 ))}
             </div>

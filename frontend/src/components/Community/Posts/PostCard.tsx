@@ -2,7 +2,7 @@ import { ThumbsUp, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-import { UserBadge } from './UserBadge';
+import { UserBadge } from '@/components/Community/UserBadge';
 
 interface PostCardProps {
     id: string;
@@ -18,9 +18,11 @@ interface PostCardProps {
     comments: number;
     isPinned?: boolean;
     imageUrl?: string;
+    onPostClick: (id: string) => void;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({
+    id,
     author,
     timestamp,
     category,
@@ -29,6 +31,7 @@ export const PostCard: React.FC<PostCardProps> = ({
     comments,
     isPinned = false,
     imageUrl,
+    onPostClick
 }) => {
     // Verificar si el contenido comienza con "Re:" para formato especial
     const isReply = content.startsWith('Re:');
@@ -36,8 +39,15 @@ export const PostCard: React.FC<PostCardProps> = ({
     const title = contentLines[0];
     const body = contentLines.slice(1).join('\n');
 
+    const handleClick = () => {
+        onPostClick(id);
+    };
+
     return (
-        <div className={`bg-[#323230] rounded-lg p-4 my-3 mx-4 sm:mx-2 md:mx-0 ${isPinned ? 'border-l-4 border-amber-500' : 'border border-white/10'}`}>
+        <div
+            className={`bg-[#323230] rounded-lg p-4 my-3 mx-4 sm:mx-2 md:mx-0 ${isPinned ? 'border-l-4 border-amber-500' : 'border border-white/10'} cursor-pointer hover:bg-[#3a3a38] transition-colors`}
+            onClick={handleClick}
+        >
             <UserBadge
                 username={author.username}
                 level={author.level}
@@ -83,13 +93,25 @@ export const PostCard: React.FC<PostCardProps> = ({
             {/* Interacciones */}
             <div className="flex items-center gap-4 mt-2 text-zinc-300">
                 <div className="flex items-center gap-1">
-                    <button className="p-1 hover:bg-[#444442] rounded-full">
+                    <button
+                        className="p-1 hover:bg-[#444442] rounded-full"
+                        onClick={(e) => {
+                            e.stopPropagation(); // Evitar que se abra el modal al dar like
+                            // Aquí iría la lógica para dar like
+                        }}
+                    >
                         <ThumbsUp size={16} />
                     </button>
                     <span className="text-sm">{likes}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                    <button className="p-1 hover:bg-[#444442] rounded-full">
+                    <button
+                        className="p-1 hover:bg-[#444442] rounded-full"
+                        onClick={(e) => {
+                            e.stopPropagation(); // Evitar que se abra el modal al comentar
+                            // Aquí iría la lógica para ir directamente a comentar
+                        }}
+                    >
                         <MessageCircle size={16} />
                     </button>
                     <span className="text-sm">{comments}</span>
