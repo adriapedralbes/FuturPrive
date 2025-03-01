@@ -18,17 +18,17 @@ export default function CommunityPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0a0a0a] text-white">
+    <div className="flex flex-col min-h-screen bg-[#1f1f1e] text-white py-6">
       {/* Barra de navegación en la parte superior */}
-      <div className="w-full h-16 sm:h-20">
+      <div className="w-full h-16 sm:h-20 ">
         <NavBarCommunity />
       </div>
 
       {/* Separador horizontal debajo del navbar */}
-      <div className="w-full border-b border-zinc-800 pt-4"></div>
+      <div className="w-full border-b border-white/10"></div>
 
       {/* Contenido principal con dos columnas */}
-      <div className="flex-1 container mx-auto px-4 max-w-6xl pt-6 sm:pt-2 sm:mt-5">
+      <div className="flex-1 container mx-auto px-4 max-w-6xl pt-2 sm:mt-8">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Columna principal (izquierda) */}
           <div className="flex-1">

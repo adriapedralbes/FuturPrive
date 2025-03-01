@@ -37,7 +37,7 @@ export const PostCard: React.FC<PostCardProps> = ({
     const body = contentLines.slice(1).join('\n');
 
     return (
-        <div className={`bg-zinc-800 rounded-lg p-4 my-3 mx-4 sm:mx-2 md:mx-0 ${isPinned ? 'border-l-4 border-amber-500' : ''}`}>
+        <div className={`bg-[#323230] rounded-lg p-4 my-3 mx-4 sm:mx-2 md:mx-0 ${isPinned ? 'border-l-4 border-amber-500' : 'border border-white/10'}`}>
             <UserBadge
                 username={author.username}
                 level={author.level}
@@ -45,10 +45,10 @@ export const PostCard: React.FC<PostCardProps> = ({
                 timestamp={timestamp}
                 category={category}
                 categoryColor={
-                    category === 'General' ? 'bg-zinc-700' :
-                        category === 'Anuncios' ? 'bg-zinc-700' :
-                            category === 'Preguntas' ? 'bg-zinc-700' :
-                                'bg-zinc-700'
+                    category === 'General' ? 'bg-[#444442] border border-white/5' :
+                        category === 'Anuncios' ? 'bg-[#444442] border border-white/5' :
+                            category === 'Preguntas' ? 'bg-[#444442] border border-white/5' :
+                                'bg-[#444442] border border-white/5'
                 }
             />
 
@@ -56,15 +56,15 @@ export const PostCard: React.FC<PostCardProps> = ({
             {isReply ? (
                 <div className="mt-2 mb-1 font-medium flex items-center">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
-                    <h3 className="text-zinc-100">{title}</h3>
+                    <h3 className="text-white">{title}</h3>
                 </div>
             ) : (
-                <h3 className="mt-3 mb-2 font-medium text-zinc-100">{title}</h3>
+                <h3 className="mt-3 mb-2 font-medium text-white">{title}</h3>
             )}
 
             {/* Contenido del post */}
             <div className="mb-3">
-                <p className="text-zinc-300 text-sm">{body}</p>
+                <p className="text-zinc-200 text-sm">{body}</p>
             </div>
 
             {/* Imagen adjunta */}
@@ -75,21 +75,21 @@ export const PostCard: React.FC<PostCardProps> = ({
                         alt={`Contenido de ${title}`}
                         width={500}
                         height={300}
-                        className="rounded-lg max-h-28 object-cover"
+                        className="rounded-lg max-h-28 object-cover border border-white/10"
                     />
                 </div>
             )}
 
             {/* Interacciones */}
-            <div className="flex items-center gap-4 mt-2 text-zinc-400">
+            <div className="flex items-center gap-4 mt-2 text-zinc-300">
                 <div className="flex items-center gap-1">
-                    <button className="p-1 hover:bg-zinc-700 rounded-full">
+                    <button className="p-1 hover:bg-[#444442] rounded-full">
                         <ThumbsUp size={16} />
                     </button>
                     <span className="text-sm">{likes}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                    <button className="p-1 hover:bg-zinc-700 rounded-full">
+                    <button className="p-1 hover:bg-[#444442] rounded-full">
                         <MessageCircle size={16} />
                     </button>
                     <span className="text-sm">{comments}</span>

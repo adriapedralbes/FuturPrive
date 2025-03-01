@@ -38,6 +38,9 @@ export const WritePostComponent: React.FC = () => {
         }
     };
 
+    // Clases personalizadas para la sombra (solo lados y abajo, no arriba)
+    const shadowClasses = "shadow-[0_9px_10px_0_rgba(0,0,0,0.3),_-5px_0_15px_-5px_rgba(0,0,0,0.2),_5px_0_15px_-5px_rgba(0,0,0,0.2)]";
+
     return (
         <>
             {/* Overlay que cubre todo menos el navbar */}
@@ -51,18 +54,20 @@ export const WritePostComponent: React.FC = () => {
             {/* Componente de escritura que se expande naturalmente y desplaza el contenido inferior */}
             <div
                 ref={componentRef}
-                className={`relative z-40 mb-6 mx-4 sm:mx-2 md:mx-0 ${isExpanded ? 'bg-zinc-900 rounded-lg shadow-xl' : 'bg-zinc-800/50 rounded-lg p-3'}`}
+                className={`relative z-40 mb-6 mx-4 sm:mx-2 md:mx-0 ${isExpanded
+                    ? `bg-[#323230] rounded-lg border border-white/10 ${shadowClasses}`
+                    : `bg-[#323230]/80 rounded-lg p-3 border border-white/10 ${shadowClasses}`}`}
             >
                 {!isExpanded ? (
                     // Versión colapsada - solo muestra el avatar y el botón para escribir
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-zinc-700 rounded-full flex items-center justify-center overflow-hidden">
-                            <User className="text-zinc-400" size={18} />
+                        <div className="w-8 h-8 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10">
+                            <User className="text-zinc-300" size={18} />
                         </div>
                         <div className="flex-1">
                             <button
                                 onClick={handleExpand}
-                                className="w-full text-left text-zinc-400 px-4 py-2 bg-zinc-800/70 rounded-lg hover:bg-zinc-700 transition-colors"
+                                className="w-full text-left text-zinc-300 px-4 py-2 bg-[#444442] rounded-lg hover:bg-[#505050] transition-colors border border-white/5"
                             >
                                 Write something
                             </button>
@@ -72,11 +77,11 @@ export const WritePostComponent: React.FC = () => {
                     // Versión expandida - formulario completo para crear post
                     <div className="p-5">
                         <div className="flex items-center gap-2 mb-4">
-                            <div className="w-8 h-8 bg-zinc-700 rounded-full flex items-center justify-center overflow-hidden">
-                                <User className="text-zinc-400" size={18} />
+                            <div className="w-8 h-8 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10">
+                                <User className="text-zinc-300" size={18} />
                             </div>
-                            <div className="text-sm text-zinc-400">
-                                Ad EstMarq posting in <span className="text-zinc-200">DevAccelerator</span>
+                            <div className="text-sm text-zinc-300">
+                                Ad EstMarq posting in <span className="text-white">DevAccelerator</span>
                             </div>
                         </div>
 
@@ -85,7 +90,7 @@ export const WritePostComponent: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="Title"
-                                className="w-full bg-transparent text-xl font-medium text-zinc-200 border-none outline-none placeholder-zinc-500"
+                                className="w-full bg-transparent text-xl font-medium text-white border-none outline-none placeholder-zinc-500"
                                 autoFocus
                             />
                         </div>
@@ -94,49 +99,49 @@ export const WritePostComponent: React.FC = () => {
                         <div className="mb-8">
                             <textarea
                                 placeholder="Write something..."
-                                className="w-full h-32 bg-transparent text-zinc-300 border-none outline-none resize-none placeholder-zinc-500"
+                                className="w-full h-32 bg-transparent text-zinc-200 border-none outline-none resize-none placeholder-zinc-500"
                             />
                         </div>
 
                         {/* Barra de herramientas */}
                         <div className="flex flex-wrap items-center">
                             <div className="flex flex-wrap space-x-2 mb-2 sm:mb-0">
-                                <button className="p-2 text-zinc-400 hover:bg-zinc-700 rounded-full transition-colors">
+                                <button className="p-2 text-zinc-300 hover:bg-[#444442] rounded-full transition-colors border border-white/5">
                                     <Paperclip size={20} />
                                 </button>
-                                <button className="p-2 text-zinc-400 hover:bg-zinc-700 rounded-full transition-colors">
+                                <button className="p-2 text-zinc-300 hover:bg-[#444442] rounded-full transition-colors border border-white/5">
                                     <Link2 size={20} />
                                 </button>
-                                <button className="p-2 text-zinc-400 hover:bg-zinc-700 rounded-full transition-colors">
+                                <button className="p-2 text-zinc-300 hover:bg-[#444442] rounded-full transition-colors border border-white/5">
                                     <Video size={20} />
                                 </button>
-                                <button className="p-2 text-zinc-400 hover:bg-zinc-700 rounded-full transition-colors">
+                                <button className="p-2 text-zinc-300 hover:bg-[#444442] rounded-full transition-colors border border-white/5">
                                     <BarChart2 size={20} />
                                 </button>
-                                <button className="p-2 text-zinc-400 hover:bg-zinc-700 rounded-full transition-colors">
+                                <button className="p-2 text-zinc-300 hover:bg-[#444442] rounded-full transition-colors border border-white/5">
                                     <Smile size={20} />
                                 </button>
-                                <button className="p-2 text-zinc-400 hover:bg-zinc-700 rounded-full transition-colors">
+                                <button className="p-2 text-zinc-300 hover:bg-[#444442] rounded-full transition-colors border border-white/5">
                                     <span className="font-bold">GIF</span>
                                 </button>
                             </div>
 
                             <div className="ml-auto flex flex-wrap items-center gap-3 w-full sm:w-auto mt-3 sm:mt-0">
                                 <div className="relative">
-                                    <button className="px-3 py-1.5 text-zinc-400 bg-zinc-800 rounded-lg flex items-center gap-2 text-sm">
+                                    <button className="px-3 py-1.5 text-zinc-300 bg-[#444442] rounded-lg flex items-center gap-2 text-sm border border-white/5">
                                         Select a category <span className="ml-1">▼</span>
                                     </button>
                                 </div>
 
                                 <button
                                     onClick={handleCancel}
-                                    className="px-4 py-1.5 text-zinc-400 hover:text-zinc-300 text-sm font-medium"
+                                    className="px-4 py-1.5 text-zinc-300 hover:text-white text-sm font-medium"
                                 >
                                     CANCEL
                                 </button>
 
                                 <button
-                                    className="px-4 py-1.5 bg-zinc-700 text-zinc-300 rounded-lg hover:bg-zinc-600 text-sm font-medium"
+                                    className="px-4 py-1.5 bg-[#444442] text-white rounded-lg hover:bg-[#505050] text-sm font-medium border border-white/5"
                                 >
                                     POST
                                 </button>

@@ -73,7 +73,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
             {/* Vista móvil - Dropdown */}
             <div className="flex md:hidden flex-col relative" ref={categoryFilterRef}>
                 <button
-                    className="flex items-center justify-between w-full px-4 py-2 bg-zinc-800 rounded-lg text-white"
+                    className="flex items-center justify-between w-full px-4 py-2 bg-[#323230] rounded-lg text-white border border-white/10"
                     onClick={() => setShowDropdown(!showDropdown)}
                 >
                     <div className="flex items-center gap-2">
@@ -84,15 +84,15 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
                 </button>
 
                 {showDropdown && (
-                    <div className="absolute top-12 left-0 right-0 bg-zinc-900 rounded-lg shadow-lg z-10">
+                    <div className="absolute top-12 left-0 right-0 bg-[#323230] rounded-lg shadow-lg z-10 border border-white/10">
                         {/* Sección de categorías */}
                         <div className="py-2">
                             {categories.map((category) => (
                                 <button
                                     key={category.id}
                                     className={`flex items-center gap-2 px-4 py-2 w-full text-left ${activeCategory === category.id
-                                        ? 'bg-zinc-700 text-white'
-                                        : 'text-zinc-400 hover:bg-zinc-800'
+                                        ? 'bg-[#444442] text-white border-l-2 border-l-white/20'
+                                        : 'text-zinc-300 hover:bg-[#444442]'
                                         }`}
                                     onClick={() => {
                                         onCategoryChange(category.id);
@@ -106,21 +106,21 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
                         </div>
 
                         {/* Separador */}
-                        <div className="border-t border-zinc-700 mx-2"></div>
+                        <div className="border-t border-white/10 mx-2"></div>
 
                         {/* Sección de ordenamiento */}
                         <div className="py-2">
-                            <div className="px-4 py-1 text-xs text-zinc-500 uppercase">Ordenar por</div>
+                            <div className="px-4 py-1 text-xs text-zinc-400 uppercase">Ordenar por</div>
                             {sortTypes.map((sort) => (
                                 <button
                                     key={sort.id}
                                     className={`flex items-center gap-2 px-4 py-2 w-full text-left ${activeSortType === sort.id
-                                        ? 'bg-amber-500/30 text-amber-500'
-                                        : 'text-zinc-300 hover:bg-zinc-800'
+                                        ? 'bg-amber-500/30 text-amber-400 border-l-2 border-l-amber-500/50'
+                                        : 'text-zinc-200 hover:bg-[#444442]'
                                         }`}
                                     onClick={() => {
                                         setActiveSortType(sort.id);
-                                        setShowDropdown(false);
+                                        setShowSortDropdown(false);
                                     }}
                                 >
                                     {sort.icon}
@@ -137,9 +137,9 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
                 {categories.map((category) => (
                     <button
                         key={category.id}
-                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium ${activeCategory === category.id
-                            ? 'bg-zinc-700 text-white'
-                            : 'bg-zinc-800/60 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium border ${activeCategory === category.id
+                            ? 'bg-[#444442] text-white border-white/20'
+                            : 'bg-[#323230]/80 text-zinc-300 hover:bg-[#444442] hover:text-white border-white/10'
                             }`}
                         onClick={() => onCategoryChange(category.id)}
                     >
@@ -151,20 +151,20 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
                 {/* Dropdown de filtro */}
                 <div className="relative ml-auto" ref={sortFilterRef}>
                     <button
-                        className="bg-zinc-800/60 text-zinc-400 p-1.5 rounded-full hover:bg-zinc-700 hover:text-zinc-300"
+                        className="bg-[#323230]/80 text-zinc-300 p-1.5 rounded-full hover:bg-[#444442] hover:text-white border border-white/10"
                         onClick={() => setShowSortDropdown(!showSortDropdown)}
                     >
                         <SlidersHorizontal size={18} />
                     </button>
 
                     {showSortDropdown && (
-                        <div className="absolute top-full right-0 mt-1 bg-zinc-900 rounded-lg shadow-lg z-10 py-0 min-w-[160px] overflow-hidden">
+                        <div className="absolute top-full right-0 mt-1 bg-[#323230] rounded-lg shadow-lg z-10 py-0 min-w-[160px] overflow-hidden border border-white/10">
                             {sortTypes.map((sort) => (
                                 <button
                                     key={sort.id}
                                     className={`flex items-center gap-2 px-4 py-2 w-full text-left ${activeSortType === sort.id
-                                        ? 'bg-amber-500/30 text-amber-500'
-                                        : 'text-zinc-300 hover:bg-zinc-800 hover:text-zinc-100'
+                                        ? 'bg-amber-500/30 text-amber-400 border-l-2 border-l-amber-500/50'
+                                        : 'text-zinc-200 hover:bg-[#444442] hover:text-white'
                                         }`}
                                     onClick={() => {
                                         setActiveSortType(sort.id);

@@ -18,14 +18,14 @@ export const PinnedPostsSection: React.FC<PinnedPostsSectionProps> = ({ pinnedPo
 
     return (
         <div className="mb-4 mx-4 sm:mx-2 md:mx-0">
-            <div className="bg-amber-800/20 rounded-t-lg px-4 py-2 flex items-center justify-between border-l-4 border-amber-500">
-                <div className="flex items-center gap-2 text-amber-500">
+            <div className="bg-amber-800/30 rounded-t-lg px-4 py-2 flex items-center justify-between border-l-4 border-amber-500 border-t border-r border-white/10">
+                <div className="flex items-center gap-2 text-amber-400">
                     <Trophy size={16} />
                     <span className="font-medium">Pinned</span>
                 </div>
                 <button
                     onClick={() => setIsVisible(false)}
-                    className="text-sm font-medium text-amber-500/80 hover:text-amber-500"
+                    className="text-sm font-medium text-amber-400 hover:text-amber-300"
                 >
                     Hide
                 </button>
