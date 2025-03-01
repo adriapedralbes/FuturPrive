@@ -22,11 +22,22 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(post?.likes || 0);
 
+    // Función para confirmar salida si hay comentario pendiente
+    const confirmDiscardComment = (): boolean => {
+        if (comment.trim() !== '') {
+            return window.confirm("Aún no has terminado tu comentario. ¿Quieres irte sin terminar?");
+        }
+        return true;
+    };
+
     // Close on click outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-                onClose();
+                if (confirmDiscardComment()) {
+                    setComment('');
+                    onClose();
+                }
             }
         };
 
@@ -38,13 +49,16 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isOpen, onClose]);
+    }, [isOpen, onClose, comment]);
 
     // Close on escape key
     useEffect(() => {
         const handleEscapeKey = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
-                onClose();
+                if (confirmDiscardComment()) {
+                    setComment('');
+                    onClose();
+                }
             }
         };
 
@@ -55,7 +69,7 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
         return () => {
             document.removeEventListener('keydown', handleEscapeKey);
         };
-    }, [isOpen, onClose]);
+    }, [isOpen, onClose, comment]);
 
     // Handle like action
     const handleLike = () => {
@@ -204,7 +218,11 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                                 {comment.trim() !== '' && (
                                     <div className="flex justify-end mt-1.5 space-x-2">
                                         <button
-                                            onClick={() => setComment('')}
+                                            onClick={() => {
+                                                if (confirmDiscardComment()) {
+                                                    setComment('');
+                                                }
+                                            }}
                                             className="text-zinc-400 hover:text-zinc-300 text-xs font-medium px-3 py-2"
                                         >
                                             CANCEL
