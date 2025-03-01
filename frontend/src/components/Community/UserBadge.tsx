@@ -21,7 +21,7 @@ export const UserBadge: React.FC<UserBadgeProps> = ({
 }) => {
   return (
     <div className="flex items-center gap-2">
-      <div className="relative flex-shrink-0">
+      <div className="relative flex-shrink-0 self-start">
         <div className="w-10 h-10 bg-zinc-700 rounded-full flex items-center justify-center overflow-hidden">
           {avatarUrl ? (
             <Image

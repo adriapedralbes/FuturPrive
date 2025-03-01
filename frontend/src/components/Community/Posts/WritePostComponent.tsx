@@ -1,9 +1,12 @@
 import { User, Paperclip, Link2, Video, BarChart2, Smile } from 'lucide-react';
 import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 
 export const WritePostComponent: React.FC = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [postTitle, setPostTitle] = useState('');
+    const [postContent, setPostContent] = useState('');
     const componentRef = useRef<HTMLDivElement>(null);
 
     // Detectar si estamos en vista móvil
@@ -29,13 +32,35 @@ export const WritePostComponent: React.FC = () => {
 
     const handleCancel = () => {
         setIsExpanded(false);
+        setPostTitle('');
+        setPostContent('');
     };
 
     // Cierra el componente al hacer clic fuera de él
     const handleOverlayClick = (e: React.MouseEvent) => {
         if (componentRef.current && !componentRef.current.contains(e.target as Node)) {
-            setIsExpanded(false);
+            // Si hay contenido, confirmar antes de cerrar
+            if (postTitle.trim() || postContent.trim()) {
+                if (window.confirm("¿Estás seguro de que quieres descartar tu publicación?")) {
+                    setIsExpanded(false);
+                    setPostTitle('');
+                    setPostContent('');
+                }
+            } else {
+                setIsExpanded(false);
+            }
         }
+    };
+
+    // Manejar el envío del post
+    const handleSubmit = () => {
+        // Aquí iría la lógica para enviar el post
+        console.log("Post enviado:", { title: postTitle, content: postContent });
+
+        // Limpiar el formulario y cerrar
+        setPostTitle('');
+        setPostContent('');
+        setIsExpanded(false);
     };
 
     // Clases personalizadas para la sombra (solo lados y abajo, no arriba)
@@ -61,8 +86,13 @@ export const WritePostComponent: React.FC = () => {
                 {!isExpanded ? (
                     // Versión colapsada - solo muestra el avatar y el botón para escribir
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10">
-                            <User className="text-zinc-300" size={18} />
+                        <div className="relative flex-shrink-0 self-start">
+                            <div className="w-8 h-8 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10">
+                                <User className="text-zinc-300" size={18} />
+                            </div>
+                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center text-[10px] font-bold text-white border border-zinc-900 z-10">
+                                1
+                            </div>
                         </div>
                         <div className="flex-1">
                             <button
@@ -77,8 +107,13 @@ export const WritePostComponent: React.FC = () => {
                     // Versión expandida - formulario completo para crear post
                     <div className="p-5">
                         <div className="flex items-center gap-2 mb-4">
-                            <div className="w-8 h-8 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10">
-                                <User className="text-zinc-300" size={18} />
+                            <div className="relative flex-shrink-0 self-start">
+                                <div className="w-8 h-8 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10">
+                                    <User className="text-zinc-300" size={18} />
+                                </div>
+                                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center text-[10px] font-bold text-white border border-zinc-900 z-10">
+                                    1
+                                </div>
                             </div>
                             <div className="text-sm text-zinc-300">
                                 Ad EstMarq posting in <span className="text-white">DevAccelerator</span>
@@ -90,6 +125,8 @@ export const WritePostComponent: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="Title"
+                                value={postTitle}
+                                onChange={(e) => setPostTitle(e.target.value)}
                                 className="w-full bg-transparent text-xl font-medium text-white border-none outline-none placeholder-zinc-500"
                                 autoFocus
                             />
@@ -99,6 +136,8 @@ export const WritePostComponent: React.FC = () => {
                         <div className="mb-8">
                             <textarea
                                 placeholder="Write something..."
+                                value={postContent}
+                                onChange={(e) => setPostContent(e.target.value)}
                                 className="w-full h-32 bg-transparent text-zinc-200 border-none outline-none resize-none placeholder-zinc-500"
                             />
                         </div>
@@ -141,7 +180,9 @@ export const WritePostComponent: React.FC = () => {
                                 </button>
 
                                 <button
+                                    onClick={handleSubmit}
                                     className="px-4 py-1.5 bg-[#444442] text-white rounded-lg hover:bg-[#505050] text-sm font-medium border border-white/5"
+                                    disabled={!postTitle.trim() && !postContent.trim()}
                                 >
                                     POST
                                 </button>

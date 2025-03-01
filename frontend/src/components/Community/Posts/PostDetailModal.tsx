@@ -253,7 +253,7 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                                     <div key={comment.id} className="mb-4">
                                         <div className="flex gap-2">
                                             {/* Avatar y detalles del autor */}
-                                            <div className="relative flex-shrink-0">
+                                            <div className="relative flex-shrink-0 self-start">
                                                 <div className="w-8 h-8 bg-[#444442] rounded-full overflow-hidden border border-white/10">
                                                     {comment.author.avatarUrl ? (
                                                         <Image
@@ -321,7 +321,7 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                                                     <div key={reply.id} className="mb-4">
                                                         <div className="flex gap-2">
                                                             {/* Avatar y detalles del autor */}
-                                                            <div className="relative flex-shrink-0">
+                                                            <div className="relative flex-shrink-0 self-start">
                                                                 <div className="w-8 h-8 bg-[#444442] rounded-full overflow-hidden border border-white/10">
                                                                     {reply.author.avatarUrl ? (
                                                                         <Image

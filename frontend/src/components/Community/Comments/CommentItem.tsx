@@ -28,7 +28,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({ comment, onReply }) =>
     return (
         <div className="mb-4">
             <div className="flex gap-2">
-                {/* Avatar y detalles del autor - CORREGIDO CON flex-shrink-0 y z-10 */}
+                {/* Avatar y detalles del autor - CORREGIDO CON flex-shrink-0, self-start y z-10 */}
                 <div className="relative flex-shrink-0 self-start">
                     <div className="w-8 h-8 bg-[#444442] rounded-full overflow-hidden border border-white/10">
                         {comment.author.avatarUrl ? (
