@@ -1,5 +1,5 @@
 import { User, Paperclip, Link2, Video, BarChart2, Smile } from 'lucide-react';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 export const WritePostComponent: React.FC = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -14,44 +14,26 @@ export const WritePostComponent: React.FC = () => {
     };
 
     // Cierra el componente al hacer clic fuera de él
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (componentRef.current && !componentRef.current.contains(event.target as Node) && isExpanded) {
-                setIsExpanded(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isExpanded]);
-
-    // Previene el scroll cuando el componente está expandido
-    useEffect(() => {
-        if (isExpanded) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
+    const handleOverlayClick = (e: React.MouseEvent) => {
+        if (componentRef.current && !componentRef.current.contains(e.target as Node)) {
+            setIsExpanded(false);
         }
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [isExpanded]);
+    };
 
     return (
         <>
-            {/* Overlay de fondo oscuro cuando está expandido */}
+            {/* Overlay que cubre todo menos el navbar */}
             {isExpanded && (
                 <div
-                    className="fixed inset-0 bg-black/60 z-40"
+                    className="fixed inset-0 bg-black/60 z-30 pt-20"
+                    onClick={handleOverlayClick}
                 />
             )}
 
+            {/* Componente de escritura que se expande naturalmente y desplaza el contenido inferior */}
             <div
                 ref={componentRef}
-                className={`relative z-50 mb-6 ${isExpanded ? 'bg-zinc-900 rounded-lg shadow-xl' : 'bg-zinc-800/50 rounded-lg p-3'
-                    }`}
+                className={`relative z-40 mb-6 ${isExpanded ? 'bg-zinc-900 rounded-lg shadow-xl' : 'bg-zinc-800/50 rounded-lg p-3'}`}
             >
                 {!isExpanded ? (
                     // Versión colapsada - solo muestra el avatar y el botón para escribir
