@@ -29,6 +29,30 @@
     --color-5: 90 100% 63%;
   }
 }
+
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body {
+  /* Prevenir scroll horizontal en el contenido */
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Para asegurar que no haya cambios de anchura que afecten al layout */
+#root,
+#__next {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Para las transiciones suaves, puedes añadir: */
+.navbar-container {
+  transition: none !important;
+}
+
 .magic-card {
   transition:
     transform 0.3s ease,
