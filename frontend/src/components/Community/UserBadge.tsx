@@ -21,7 +21,7 @@ export const UserBadge: React.FC<UserBadgeProps> = ({
 }) => {
   return (
     <div className="flex items-center gap-2">
-      <div className="relative">
+      <div className="relative flex-shrink-0">
         <div className="w-10 h-10 bg-zinc-700 rounded-full flex items-center justify-center overflow-hidden">
           {avatarUrl ? (
             <Image
@@ -36,7 +36,7 @@ export const UserBadge: React.FC<UserBadgeProps> = ({
           )}
         </div>
         {level && (
-          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-xs font-bold text-white border border-zinc-900">
+          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-xs font-bold text-white border border-zinc-900 z-10">
             {level}
           </div>
         )}

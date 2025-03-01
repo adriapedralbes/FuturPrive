@@ -1,10 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { ThumbsUp, MessageCircle, Bell, MoreHorizontal, Smile } from 'lucide-react';
+import { ThumbsUp, MessageCircle, Bell, Smile, CornerUpRight } from 'lucide-react';
 import Image from 'next/image';
 
 import { Post } from '@/types/Post';
+import { Comment } from '@/types/Comment';
 import { UserBadge } from '@/components/Community/UserBadge';
 import { Button } from '@/components/ui/button';
+import { commentsByPostId } from '@/mockComments';
 
 interface PostDetailModalProps {
     post: Post | null;
@@ -18,9 +20,11 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
     onClose
 }) => {
     const [comment, setComment] = useState('');
+    const [replyToComment, setReplyToComment] = useState<{ id: string, username: string } | null>(null);
     const modalRef = useRef<HTMLDivElement>(null);
     const [liked, setLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(post?.likes || 0);
+    const [comments, setComments] = useState<Comment[]>([]);
 
     // Función para confirmar salida si hay comentario pendiente
     const confirmDiscardComment = (): boolean => {
@@ -75,6 +79,66 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
     const handleLike = () => {
         setLiked(!liked);
         setLikesCount(prevCount => liked ? prevCount - 1 : prevCount + 1);
+    };
+
+    // Cargar comentarios
+    useEffect(() => {
+        if (post && isOpen) {
+            // Cargar comentarios del post seleccionado
+            const postComments = commentsByPostId[post.id] || [];
+            setComments(postComments);
+        }
+    }, [post, isOpen]);
+
+    // Manejar respuesta a un comentario
+    const handleReplyToComment = (commentId: string, username: string) => {
+        setReplyToComment({ id: commentId, username });
+        // Enfocar el campo de comentario
+        document.getElementById('comment-input')?.focus();
+    };
+
+    // Cancelar respuesta
+    const cancelReply = () => {
+        setReplyToComment(null);
+    };
+
+    // Añadir un nuevo comentario
+    const addComment = () => {
+        if (comment.trim() === '') return;
+
+        const newComment: Comment = {
+            id: `comment${Date.now()}`,
+            author: {
+                username: 'Tu Usuario', // Esto sería el usuario actual
+                level: 1,
+                avatarUrl: 'https://github.com/shadcn.png'
+            },
+            content: comment,
+            timestamp: 'ahora',
+            likes: 0,
+            mentionedUser: replyToComment?.username
+        };
+
+        if (replyToComment) {
+            // Añadir como respuesta al comentario seleccionado
+            setComments(prevComments => {
+                return prevComments.map(c => {
+                    if (c.id === replyToComment.id) {
+                        return {
+                            ...c,
+                            replies: [...(c.replies || []), newComment]
+                        };
+                    }
+                    return c;
+                });
+            });
+            setReplyToComment(null);
+        } else {
+            // Añadir como comentario principal
+            setComments(prevComments => [...prevComments, newComment]);
+        }
+
+        setComment('');
     };
 
     // Format content with title and body
@@ -176,27 +240,194 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                             </button>
                             <span className="text-sm">{post.comments}</span>
                         </div>
-                        {/* Quitando el botón de tres puntos */}
                     </div>
 
                     {/* Comments Section */}
-                    <div className="mt-3">
-                        <h3 className="text-white font-medium mb-3 text-sm">Comentarios ({post.comments})</h3>
+                    <div className="mt-5">
+                        <h3 className="text-white font-medium mb-4 text-sm">Comentarios ({comments.length})</h3>
 
-                        {/* Add Comment */}
-                        <div className="flex gap-2 mt-2">
-                            <div className="w-7 h-7 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10 flex-shrink-0">
-                                <Image
-                                    src="https://github.com/shadcn.png"
-                                    alt="Tu avatar"
-                                    width={28}
-                                    height={28}
-                                    className="w-full h-full object-cover"
-                                />
+                        {/* Lista de comentarios existentes */}
+                        {comments.length > 0 ? (
+                            <div className="space-y-4 mb-5">
+                                {comments.map((comment) => (
+                                    <div key={comment.id} className="mb-4">
+                                        <div className="flex gap-2">
+                                            {/* Avatar y detalles del autor */}
+                                            <div className="relative flex-shrink-0">
+                                                <div className="w-8 h-8 bg-[#444442] rounded-full overflow-hidden border border-white/10">
+                                                    {comment.author.avatarUrl ? (
+                                                        <Image
+                                                            src={comment.author.avatarUrl}
+                                                            alt={comment.author.username}
+                                                            width={32}
+                                                            height={32}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-zinc-400">
+                                                            {comment.author.username.charAt(0).toUpperCase()}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                {comment.author.level && (
+                                                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center text-[10px] font-bold text-white border border-zinc-900 z-10">
+                                                        {comment.author.level}
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <div className="flex-1">
+                                                {/* Encabezado del comentario */}
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <span className="font-medium text-white">{comment.author.username}</span>
+                                                    <span className="text-xs text-zinc-400">{comment.timestamp}</span>
+                                                </div>
+
+                                                {/* Contenido del comentario */}
+                                                <div className="bg-[#2a2a29] rounded-lg px-3 py-2 text-zinc-200 mb-1">
+                                                    {comment.mentionedUser && (
+                                                        <span className="text-blue-400">@{comment.mentionedUser} </span>
+                                                    )}
+                                                    {comment.content}
+                                                </div>
+
+                                                {/* Acciones del comentario */}
+                                                <div className="flex items-center gap-4 ml-1">
+                                                    <div className="flex items-center gap-1">
+                                                        <button
+                                                            className="p-1 rounded-full text-zinc-400 hover:text-zinc-300"
+                                                        >
+                                                            <ThumbsUp size={14} />
+                                                        </button>
+                                                        {comment.likes > 0 && (
+                                                            <span className="text-xs text-zinc-400">{comment.likes}</span>
+                                                        )}
+                                                    </div>
+                                                    <button
+                                                        className="text-zinc-400 hover:text-zinc-300 text-xs flex items-center gap-1"
+                                                        onClick={() => handleReplyToComment(comment.id, comment.author.username)}
+                                                    >
+                                                        <CornerUpRight size={14} />
+                                                        Reply
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Comentarios anidados (respuestas) */}
+                                        {comment.replies && comment.replies.length > 0 && (
+                                            <div className="ml-10 mt-3">
+                                                {comment.replies.map((reply) => (
+                                                    <div key={reply.id} className="mb-4">
+                                                        <div className="flex gap-2">
+                                                            {/* Avatar y detalles del autor */}
+                                                            <div className="relative flex-shrink-0">
+                                                                <div className="w-8 h-8 bg-[#444442] rounded-full overflow-hidden border border-white/10">
+                                                                    {reply.author.avatarUrl ? (
+                                                                        <Image
+                                                                            src={reply.author.avatarUrl}
+                                                                            alt={reply.author.username}
+                                                                            width={32}
+                                                                            height={32}
+                                                                            className="w-full h-full object-cover"
+                                                                        />
+                                                                    ) : (
+                                                                        <div className="w-full h-full flex items-center justify-center text-zinc-400">
+                                                                            {reply.author.username.charAt(0).toUpperCase()}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                                {reply.author.level && (
+                                                                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center text-[10px] font-bold text-white border border-zinc-900 z-10">
+                                                                        {reply.author.level}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+
+                                                            <div className="flex-1">
+                                                                {/* Encabezado del comentario */}
+                                                                <div className="flex items-center gap-2 mb-1">
+                                                                    <span className="font-medium text-white">{reply.author.username}</span>
+                                                                    <span className="text-xs text-zinc-400">{reply.timestamp}</span>
+                                                                </div>
+
+                                                                {/* Contenido del comentario */}
+                                                                <div className="bg-[#2a2a29] rounded-lg px-3 py-2 text-zinc-200 mb-1">
+                                                                    {reply.mentionedUser && (
+                                                                        <span className="text-blue-400">@{reply.mentionedUser} </span>
+                                                                    )}
+                                                                    {reply.content}
+                                                                </div>
+
+                                                                {/* Acciones del comentario */}
+                                                                <div className="flex items-center gap-4 ml-1">
+                                                                    <div className="flex items-center gap-1">
+                                                                        <button
+                                                                            className="p-1 rounded-full text-zinc-400 hover:text-zinc-300"
+                                                                        >
+                                                                            <ThumbsUp size={14} />
+                                                                        </button>
+                                                                        {reply.likes > 0 && (
+                                                                            <span className="text-xs text-zinc-400">{reply.likes}</span>
+                                                                        )}
+                                                                    </div>
+                                                                    <button
+                                                                        className="text-zinc-400 hover:text-zinc-300 text-xs flex items-center gap-1"
+                                                                        onClick={() => handleReplyToComment(reply.id, reply.author.username)}
+                                                                    >
+                                                                        <CornerUpRight size={14} />
+                                                                        Reply
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-zinc-500 text-sm mb-4">
+                                Aún no hay comentarios. ¡Sé el primero en comentar!
+                            </div>
+                        )}
+
+                        {/* Add Comment - ESTA ES LA SECCIÓN CORREGIDA */}
+                        <div className="flex gap-2 mt-4 border-t border-white/10 pt-4">
+                            <div className="relative flex-shrink-0 self-start">
+                                <div className="w-8 h-8 bg-[#444442] rounded-full flex items-center justify-center overflow-hidden border border-white/10">
+                                    <Image
+                                        src="https://github.com/shadcn.png"
+                                        alt="Tu avatar"
+                                        width={32}
+                                        height={32}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center text-[10px] font-bold text-white border border-zinc-900 z-10">
+                                    1
+                                </div>
                             </div>
                             <div className="flex-1">
-                                <div className="bg-[#252524] rounded-full flex items-center border border-white/5 mb-4">
+                                {/* Indicador de respuesta */}
+                                {replyToComment && (
+                                    <div className="flex items-center gap-2 mb-2 text-xs text-blue-400">
+                                        <CornerUpRight size={14} />
+                                        <span>Respondiendo a {replyToComment.username}</span>
+                                        <button
+                                            onClick={cancelReply}
+                                            className="text-zinc-400 hover:text-zinc-300 ml-2"
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                )}
+
+                                <div className="bg-[#252524] rounded-full flex items-center border border-white/5 mb-2">
                                     <input
+                                        id="comment-input"
                                         type="text"
                                         value={comment}
                                         onChange={(e) => setComment(e.target.value)}
@@ -205,9 +436,6 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                                     />
                                     <div className="flex items-center mr-3 space-x-1">
                                         <button className="p-1 text-zinc-500 hover:text-zinc-300">
-                                            <MessageCircle size={16} />
-                                        </button>
-                                        <button className="p-1 text-zinc-500 hover:text-zinc-300">
                                             <span className="text-xs font-bold">GIF</span>
                                         </button>
                                         <button className="p-1 text-zinc-500 hover:text-zinc-300">
@@ -215,12 +443,14 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                                         </button>
                                     </div>
                                 </div>
+
                                 {comment.trim() !== '' && (
                                     <div className="flex justify-end mt-1.5 space-x-2">
                                         <button
                                             onClick={() => {
                                                 if (confirmDiscardComment()) {
                                                     setComment('');
+                                                    setReplyToComment(null);
                                                 }
                                             }}
                                             className="text-zinc-400 hover:text-zinc-300 text-xs font-medium px-3 py-2"
@@ -229,8 +459,9 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                                         </button>
                                         <Button
                                             variant="default"
-                                            size="lg"
-                                            className="rounded-full font-medium text-base bg-amber-400 hover:bg-amber-500 text-black"
+                                            size="sm"
+                                            onClick={addComment}
+                                            className="rounded-full font-medium text-sm bg-amber-400 hover:bg-amber-500 text-black"
                                         >
                                             Comentar
                                         </Button>
