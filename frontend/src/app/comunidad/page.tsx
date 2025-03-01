@@ -24,8 +24,11 @@ export default function CommunityPage() {
         <NavBarCommunity />
       </div>
 
+      {/* Separador horizontal debajo del navbar */}
+      <div className="w-full border-b border-zinc-800 pt-4"></div>
+
       {/* Contenido principal con dos columnas */}
-      <div className="flex-1 container mx-auto px-4 max-w-6xl pt-6 sm:pt-8 sm:mt-12">
+      <div className="flex-1 container mx-auto px-4 max-w-6xl pt-6 sm:pt-2 sm:mt-5">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Columna principal (izquierda) */}
           <div className="flex-1">
