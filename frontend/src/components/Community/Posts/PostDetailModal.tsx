@@ -6,7 +6,7 @@ import { Post } from '@/types/Post';
 import { Comment } from '@/types/Comment';
 import { UserBadge } from '@/components/Community/UserBadge';
 import { Button } from '@/components/ui/button';
-import { commentsByPostId } from '@/mockComments';
+import { commentsByPostId } from '@/mockData/mockComments';
 
 interface PostDetailModalProps {
     post: Post | null;

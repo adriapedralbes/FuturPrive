@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from 'react';
-import { NavBarCommunity } from "@/components/Community/NavbarCommunity";
+import MainLayout from '@/components/layouts/MainLayout';
 import { WritePostComponent } from "@/components/Community/Posts/WritePostComponent";
 import { CategoryFilter } from "@/components/Community/CategoryFilter";
 import { PinnedPostsSection } from "@/components/Community/Posts/PinnedPostsSection";
 import { PostFeed } from "@/components/Community/Posts/PostFeed";
 import { LeaderboardWidget } from "@/components/Community/LeaderboardWidget";
 import { PostDetailModal } from "@/components/Community/Posts/PostDetailModal";
-import { pinnedPosts, regularPosts } from "@/mockData";
+import { pinnedPosts, regularPosts } from "@/mockData/mockData";
 import { topUsers } from "@/leaderboardData";
 import { Post } from "@/types/Post";
 
@@ -41,17 +41,9 @@ export default function CommunityPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#1f1f1e] text-white py-6">
-      {/* Barra de navegación en la parte superior */}
-      <div className="w-full h-16 sm:h-20">
-        <NavBarCommunity />
-      </div>
-
-      {/* Separador horizontal debajo del navbar */}
-      <div className="w-full border-b border-white/10"></div>
-
+    <MainLayout activeTab="community">
       {/* Contenido principal con dos columnas */}
-      <div className="flex-1 container mx-auto px-4 max-w-6xl pt-2 sm:mt-8">
+      <div className="container mx-auto px-4 max-w-6xl pt-6 sm:pt-8">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Columna principal (izquierda) */}
           <div className="flex-1">
@@ -87,6 +79,6 @@ export default function CommunityPage() {
         isOpen={isModalOpen}
         onClose={closeModal}
       />
-    </div>
+    </MainLayout>
   );
 }

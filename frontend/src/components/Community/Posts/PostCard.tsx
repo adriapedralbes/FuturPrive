@@ -4,7 +4,7 @@ import React from 'react';
 
 import { UserBadge } from '@/components/Community/UserBadge';
 import { CommentAvatars } from '@/components/Community/Comments/CommentAvatars';
-import { commentsByPostId } from '@/mockComments';
+import { commentsByPostId } from '@/mockData/mockComments';
 
 interface PostCardProps {
     id: string;
