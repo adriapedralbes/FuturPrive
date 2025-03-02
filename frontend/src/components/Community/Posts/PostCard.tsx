@@ -3,6 +3,8 @@ import Image from 'next/image';
 import React from 'react';
 
 import { UserBadge } from '@/components/Community/UserBadge';
+import { CommentAvatars } from '@/components/Community/Comments/CommentAvatars';
+import { commentsByPostId } from '@/mockComments';
 
 interface PostCardProps {
     id: string;
@@ -19,6 +21,11 @@ interface PostCardProps {
     isPinned?: boolean;
     imageUrl?: string;
     onPostClick: (id: string) => void;
+}
+
+interface Commenter {
+    username: string;
+    avatarUrl?: string;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({
@@ -38,6 +45,52 @@ export const PostCard: React.FC<PostCardProps> = ({
     const contentLines = content.split('\n');
     const title = contentLines[0];
     const body = contentLines.slice(1).join('\n');
+
+    // Obtener datos de comentarios para este post
+    const postComments = commentsByPostId[id] || [];
+
+    // Extraer los comentadores únicos
+    const uniqueCommenters: Commenter[] = [];
+    const commenterSet = new Set<string>();
+
+    // Función recursiva para extraer comentadores de comentarios y respuestas
+    const extractCommenters = (comments: any[]) => {
+        comments.forEach(comment => {
+            const username = comment.author.username;
+            if (!commenterSet.has(username)) {
+                commenterSet.add(username);
+                uniqueCommenters.push({
+                    username: username,
+                    avatarUrl: comment.author.avatarUrl
+                });
+            }
+
+            // Procesar respuestas si existen
+            if (comment.replies && comment.replies.length > 0) {
+                extractCommenters(comment.replies);
+            }
+        });
+    };
+
+    // Extraer todos los comentadores
+    extractCommenters(postComments);
+
+    // Obtener la timestamp del comentario más reciente
+    let lastCommentTime = null;
+    if (postComments.length > 0) {
+        // Buscar el comentario más reciente (asumiendo que están ordenados por tiempo)
+        lastCommentTime = postComments[postComments.length - 1].timestamp;
+
+        // También revisar en las respuestas
+        postComments.forEach(comment => {
+            if (comment.replies && comment.replies.length > 0) {
+                const lastReply = comment.replies[comment.replies.length - 1];
+                // Aquí se podría implementar una lógica para comparar fechas
+                // Por ahora, simplemente usamos el último
+                lastCommentTime = lastReply.timestamp;
+            }
+        });
+    }
 
     const handleClick = () => {
         onPostClick(id);
@@ -90,32 +143,42 @@ export const PostCard: React.FC<PostCardProps> = ({
                 </div>
             )}
 
-            {/* Interacciones */}
-            <div className="flex items-center gap-4 mt-2 text-zinc-300">
-                <div className="flex items-center gap-1">
-                    <button
-                        className="p-1 hover:bg-[#444442] rounded-full"
-                        onClick={(e) => {
-                            e.stopPropagation(); // Evitar que se abra el modal al dar like
-                            // Aquí iría la lógica para dar like
-                        }}
-                    >
-                        <ThumbsUp size={16} />
-                    </button>
-                    <span className="text-sm">{likes}</span>
+            {/* Interacciones y Avatares de comentadores */}
+            <div className="flex items-center justify-between mt-2">
+                <div className="flex items-center gap-4 text-zinc-300">
+                    <div className="flex items-center gap-1">
+                        <button
+                            className="p-1 hover:bg-[#444442] rounded-full"
+                            onClick={(e) => {
+                                e.stopPropagation(); // Evitar que se abra el modal al dar like
+                                // Aquí iría la lógica para dar like
+                            }}
+                        >
+                            <ThumbsUp size={16} />
+                        </button>
+                        <span className="text-sm">{likes}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <button
+                            className="p-1 hover:bg-[#444442] rounded-full"
+                            onClick={(e) => {
+                                e.stopPropagation(); // Evitar que se abra el modal al comentar
+                                // Aquí iría la lógica para ir directamente a comentar
+                            }}
+                        >
+                            <MessageCircle size={16} />
+                        </button>
+                        <span className="text-sm">{comments}</span>
+                    </div>
                 </div>
-                <div className="flex items-center gap-1">
-                    <button
-                        className="p-1 hover:bg-[#444442] rounded-full"
-                        onClick={(e) => {
-                            e.stopPropagation(); // Evitar que se abra el modal al comentar
-                            // Aquí iría la lógica para ir directamente a comentar
-                        }}
-                    >
-                        <MessageCircle size={16} />
-                    </button>
-                    <span className="text-sm">{comments}</span>
-                </div>
+
+                {/* Avatares de comentadores */}
+                {uniqueCommenters.length > 0 && (
+                    <CommentAvatars
+                        commenters={uniqueCommenters}
+                        lastCommentTime={lastCommentTime}
+                    />
+                )}
             </div>
         </div>
     );
