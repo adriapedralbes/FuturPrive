@@ -97,14 +97,18 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack }) =>
                         <div
                             key={lesson.id}
                             className={`px-4 py-3 rounded-md cursor-pointer flex justify-between items-center ${lesson.id === activeLessonId
-                                    ? 'bg-amber-500/20 text-amber-200'
-                                    : 'hover:bg-[#323230] text-white/80'
+                                ? 'bg-amber-500 text-black font-medium'
+                                : 'hover:bg-[#323230] text-white/80'
                                 } transition-colors`}
                             onClick={() => changeLesson(lesson.id)}
                         >
                             <span>{lesson.title}</span>
                             {lesson.isCompleted && (
-                                <Check className="text-green-400 flex-shrink-0" size={18} />
+                                <Check
+                                    className={`flex-shrink-0 ${lesson.id === activeLessonId ? 'text-black' : 'text-green-400'
+                                        }`}
+                                    size={18}
+                                />
                             )}
                         </div>
                     ))}
@@ -118,8 +122,8 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack }) =>
                     <button
                         onClick={() => toggleLessonCompletion(activeLessonId)}
                         className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${activeLesson.isCompleted
-                                ? 'bg-green-500 text-white'
-                                : 'bg-white/10 text-white/50 hover:bg-white/20'
+                            ? 'bg-green-500 text-white'
+                            : 'bg-white/10 text-white/50 hover:bg-white/20'
                             }`}
                     >
                         <Check size={18} />
@@ -173,24 +177,6 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack }) =>
                             </Link>
                         </p>
                     )}
-                </div>
-
-                {/* Navegación entre lecciones */}
-                <div className="mt-10 flex justify-between">
-                    <button
-                        onClick={goToPrevLesson}
-                        className="px-4 py-2 rounded-md bg-[#1F1F1E] text-white/70 hover:text-white transition-colors disabled:opacity-50 disabled:pointer-events-none"
-                        disabled={lessons.findIndex(lesson => lesson.id === activeLessonId) === 0}
-                    >
-                        Anterior
-                    </button>
-                    <button
-                        onClick={goToNextLesson}
-                        className="px-4 py-2 rounded-md bg-[#1F1F1E] text-white/70 hover:text-white transition-colors disabled:opacity-50 disabled:pointer-events-none"
-                        disabled={lessons.findIndex(lesson => lesson.id === activeLessonId) === lessons.length - 1}
-                    >
-                        Siguiente
-                    </button>
                 </div>
             </div>
         </div>
