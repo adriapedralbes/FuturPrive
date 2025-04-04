@@ -35,7 +35,11 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.futurprive.com/api
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - BEEHIIV_API_KEY=${BEEHIIV_API_KEY}
+      - BEEHIIV_PUB_ID=${BEEHIIV_PUB_ID}
+      - NEXT_PUBLIC_BEEHIIV_API_KEY=${NEXT_PUBLIC_BEEHIIV_API_KEY}
+      - NEXT_PUBLIC_BEEHIIV_PUB_ID=${NEXT_PUBLIC_BEEHIIV_PUB_ID}
     labels:
       - "traefik.enable=true"
       # Frontend service
