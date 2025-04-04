@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 
-import { AuthModal as _AuthModal, AuthModalType as _AuthModalType } from "@/components/Auth";
 import { Button } from "@/components/ui/button";
+import { beehiivService } from "@/services/beehiiv";
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState(""); // Opcional: Añadir campo de nombre
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [_showAuthModal, _setShowAuthModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,31 +24,24 @@ export function NewsletterForm() {
     setSubmitting(true);
     
     try {
-      // Realizar solicitud directa al backend sin requerir autenticación
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
-      
-      const response = await fetch(`${apiUrl}/newsletter/subscribe/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: "", // Podemos dejar el nombre vacío o usar un valor por defecto
-          email,
-        }),
+      // Llamar al servicio de Beehiiv para registrar al suscriptor
+      await beehiivService.createSubscription({
+        email,
+        name: name || undefined, // Enviar nombre solo si está definido
+        utm_source: "website",
+        utm_medium: "waitlist",
+        utm_campaign: "futurprive_launch",
+        referring_site: typeof window !== 'undefined' ? window.location.href : undefined,
+        send_welcome_email: true,
+        reactivate_existing: false, // No reactivar suscriptores existentes a menos que sea explícito
       });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Ha ocurrido un error al procesar la suscripción');
-      }
       
       setSubmitted(true);
       setEmail("");
+      setName("");
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "Error desconocido";
-      console.error("Error:", error);
+      console.error("Error al registrar suscriptor:", error);
       setErrorMessage(errorMessage || "Ha ocurrido un error. Por favor, inténtalo de nuevo.");
     } finally {
       setSubmitting(false);
@@ -136,27 +129,36 @@ export function NewsletterForm() {
           <p className="text-green-400 font-medium">¡Gracias por suscribirte a nuestra newsletter!</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-lg mx-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg mx-auto">
+          {/* Campo de nombre (opcional) */}
           <input
-            type="email"
-            placeholder="Enter Your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="flex-1 px-4 py-3 bg-[#1c1c1c] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            type="text"
+            placeholder="Tu nombre (opcional)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="px-4 py-3 bg-[#1c1c1c] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           />
-          <Button 
-            type="submit"
-            className="bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium"
-            disabled={submitting}
-          >
-            {submitting ? "Enviando..." : "Subscribe"}
-          </Button>
+          
+          {/* Campo de email */}
+          <div className="flex flex-col sm:flex-row gap-2">
+            <input
+              type="email"
+              placeholder="Tu email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="flex-1 px-4 py-3 bg-[#1c1c1c] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+            <Button 
+              type="submit"
+              className="bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium"
+              disabled={submitting}
+            >
+              {submitting ? "Enviando..." : "Suscribirme"}
+            </Button>
+          </div>
         </form>
       )}
-      
-      {/* Modal de autenticación ya no es necesario */}
-      {/* Mantenemos el componente por si en el futuro se quiere usar para otras funcionalidades */}
     </div>
   );
 }

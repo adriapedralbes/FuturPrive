@@ -11,6 +11,7 @@ import { NewsletterAvatarCircles } from "@/components/Newsletter/newsletter-avat
 import { RainbowButtonDemo } from "@/components/rainbowButton";
 import { SmoothScrollLink } from "@/components/SmoothScroll";
 import { Input } from "@/components/ui/input";
+import { beehiivService } from "@/services/beehiiv"; // Importamos el servicio de Beehiiv
 
 export function NewsletterHero() {
   const [name, setName] = useState("");
@@ -274,40 +275,20 @@ export function NewsletterHero() {
     setIsSubmitting(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
-
-      const response = await fetch(`${apiUrl}/newsletter/subscribe/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-        }),
+      // Llamar al servicio de Beehiiv para registrar al suscriptor
+      await beehiivService.createSubscription({
+        email,
+        name: name || undefined, // Enviar nombre solo si está definido
+        utm_source: "website",
+        utm_medium: "waitlist",
+        utm_campaign: "futurprive_launch",
+        referring_site: typeof window !== 'undefined' ? window.location.href : undefined,
+        send_welcome_email: true,
+        reactivate_existing: false, // No reactivar suscriptores existentes a menos que sea explícito
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Comprobar el mensaje específico de error
-        if (data.message && data.message.includes('ya está suscrito')) {
-          setErrorMessage("Los datos proporcionados ya están registrados");
-          setIsSubmitting(false);
-          return;
-        }
-        
-        // Comprobar si es error de validación de datos
-        if (data.errors) {
-          setErrorMessage("Los datos proporcionados no son válidos");
-          setIsSubmitting(false);
-          return;
-        }
-        
-        throw new Error(data.message || 'Ha ocurrido un error al procesar la suscripción');
-      }
-
-      // Redireccionar a la página de agradecimiento en lugar de mostrar el mensaje de éxito
+      // Redireccionar a la página de agradecimiento
+      setIsSuccess(true);
       window.location.href = "/thank-you";
       
       // Limpiar formulario (aunque se redirige, por si acaso)
@@ -316,7 +297,7 @@ export function NewsletterHero() {
       setAccepted(false);
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "Error desconocido";
-      console.error("Error:", error);
+      console.error("Error al registrar suscriptor:", error);
       setErrorMessage(errorMessage || "Ha ocurrido un error. Por favor, inténtalo de nuevo.");
     } finally {
       setIsSubmitting(false);
