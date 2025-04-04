@@ -50,17 +50,18 @@ export default {
   			'color-5': 'hsl(var(--color-5))'
   		},
   		animation: {
-  			'border-glow': 'border-glow 2s ease-in-out infinite',
-  			'border-gradient': 'border-gradient 2s ease-in-out infinite',
-  			'gradient-x': 'gradient-x 3s ease infinite',
-  			'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-  			shine: 'shine 6s linear infinite',
-  			marquee: 'marquee var(--duration) infinite linear',
-  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
-  			'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
-  			'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
-  			rainbow: 'rainbow var(--speed, 2s) infinite linear'
-  		},
+  				'border-glow': 'border-glow 2s ease-in-out infinite',
+  				'border-gradient': 'border-gradient 2s ease-in-out infinite',
+  				'gradient-x': 'gradient-x 3s ease infinite',
+  				'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                'fade-in': 'fadeIn 1.2s ease-out forwards',
+  				shine: 'shine 6s linear infinite',
+  				marquee: 'marquee var(--duration) infinite linear',
+  				'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+  				'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
+  				'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear',
+  				rainbow: 'rainbow var(--speed, 2s) infinite linear'
+  			},
   		keyframes: {
   			'border-glow': {
   				'0%, 100%': {
@@ -98,6 +99,10 @@ export default {
   					transform: 'translateY(0)'
   				}
   			},
+            fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
   			shine: {
   				'0%': {
   					backgroundPosition: '0 0'

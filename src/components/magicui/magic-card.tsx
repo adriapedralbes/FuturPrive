@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, useMotionTemplate, useMotionValue } from "motion/react";
-import React, { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-interface MagicCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MagicCardProps extends HTMLAttributes<HTMLDivElement> {
   gradientSize?: number;
   gradientColor?: string;
   gradientOpacity?: number;
@@ -79,7 +79,7 @@ export function MagicCard({
       // Asegúrate de incluir "magic-card" para que tome tu CSS global
       className={cn(
         "magic-card group relative flex size-full rounded-xl border border-white/10",
-        className
+        className,
       )}
     >
       <div className="absolute inset-px z-10 rounded-xl bg-background" />

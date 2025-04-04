@@ -1,13 +1,13 @@
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 
-interface RainbowButtonDemoProps {
-    children: React.ReactNode;
+interface RainbowButtonDemoProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
 }
 
-export function RainbowButtonDemo({ children }: RainbowButtonDemoProps) {
-    return (
-        <RainbowButton>
-            <span className="text-black">{children}</span>
-        </RainbowButton>
-    )
+export function RainbowButtonDemo({ children, ...props }: RainbowButtonDemoProps) {
+  return (
+    <RainbowButton {...props}>
+      <span className="text-black font-medium">{children}</span>
+    </RainbowButton>
+  );
 }

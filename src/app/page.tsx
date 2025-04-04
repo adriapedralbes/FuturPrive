@@ -1,100 +1,102 @@
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { VideoPresentation } from "@/components/video-presentation"
-import { AnimatedButton } from "@/components/animatedButton"
-import { BentoDemo } from "@/components/our-services"
-import { ShimmerButtonDemo } from "@/components/animatedButton2"
-import { MagicCardDemo } from "@/components/magicCard"
-import { RainbowButtonDemo } from "@/components/rainbowButton"
+"use client";
 
-export default function Page() {
+import { useEffect } from "react";
+
+import { Footer } from "@/components/footer-component";
+import { ActivityNotifications } from "@/components/Newsletter/activity-notifications";
+import { NewsletterBenefits } from "@/components/Newsletter/benefits/newsletter-benefits";
+import { NewsletterCommunity } from "@/components/Newsletter/community/newsletter-community";
+import { NewsletterCourses } from "@/components/Newsletter/courses/newsletter-courses";
+import { NewsletterGifts } from "@/components/Newsletter/gifts/newsletter-gifts";
+import { NewsletterHero } from "@/components/Newsletter/hero/newsletter-hero";
+import { NewsletterPricing } from "@/components/Newsletter/pricing/newsletter-pricing";
+import { NewsletterSkills } from "@/components/Newsletter/skills/newsletter-skills";
+import { MarqueeDemo } from "@/components/testimonials";
+
+export default function Home() {
+  // Implementar scroll suave para los enlaces de anclaje
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+
+      if (anchor && anchor.getAttribute('href')?.startsWith('#')) {
+        e.preventDefault();
+        const targetId = anchor.getAttribute('href')?.replace('#', '');
+        const targetElement = document.getElementById(targetId || '');
+
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+
+    // Asegurar que al cargar la página, solo se vea la sección hero
+    document.body.style.overflow = 'hidden';
+    
+    // Después de 1 segundo, restaurar el scroll
+    const timer = setTimeout(() => {
+      document.body.style.overflow = '';
+    }, 1000);
+
+    return () => {
+      document.removeEventListener('click', handleAnchorClick);
+      document.body.style.overflow = '';
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-6 py-4 lg:px-8">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="text-xl font-semibold">
-            FuturPrive
-          </Link>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-black text-white">
+      {/* Hero Section - Nueva estructura con waitlist */}
+      <NewsletterHero />
 
-      <main className="relative px-6 py-16 text-center lg:px-8 lg:py-24">
-        <div className="mx-auto max-w-4xl">
-          {/* Badge */}
-          <div className="flex justify-center mb-3">
-            <ShimmerButtonDemo />
-          </div>
-          {/* Heading */}
-          <h1 className="mb-6 text-5xl font-bold tracking-tight lg:text-5xl">
-            Soluciones IA personalizadas. <br /> Reducen Costes y Maximizan {" "}
-            <span className="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Beneficio</span>
-          </h1>
+      {/* Pricing Section */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-[#080604] z-0"></div>
+        <NewsletterPricing />
+      </div>
 
-          {/* Subtitle */}
-          <p className="mb-8 text-lg text-gray-400">
-            ¿Listo para impulsar tu proyecto con tecnología?
-            <br />
-            Agenda tu consultoría gratuita ahora y te mostraremos cómo.
-          </p>
-
-          {/* CTA Button */}
-          <Button
-            variant="white"
-            size="lg"
-            className="gap-2 font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300"
-          >
-            Agenda tu Consultoría Gratuita Ahora
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-          {/* Dashboard Preview */}
-          <div className="relative mt-16">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-[500px] w-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-[100px]" />
-            </div>
-            {/* Añadir aqui */}
-            <VideoPresentation />
-          </div>
-        </div>
-      </main >
-      <section className="mx-auto max-w-[1400px] text-center">
-        <AnimatedButton>Tendencias</AnimatedButton>
-        <div>
-          <h1 className="mb-6 text-4xl font-bold tracking-tight lg:text-5xl">
-            Nuestros Servicios
-          </h1>
-          <p className="mt-5 text-lg text-gray-400">
-            Acompañamos a tu proyecto en la implementación, desarrollo
-            de tecnologías IA y soluciones de automatización, <br />asegurando una transición fluida desde inicio
-            hasta el despliegue y el logro de resultados tangibles.
-          </p>
-        </div>
-        <BentoDemo />
+      {/* Benefits Section */}
+      <section id="benefits" className="mt-0 bg-[#0a0a0a]">
+        <NewsletterBenefits />
       </section>
 
-      <section className="mx-auto max-w-[1400px] text-center py-20 px-4">
-        <AnimatedButton>Proceso</AnimatedButton>
-        <div className="mb-16">
-          <h1 className="mb-6 text-4xl font-bold tracking-tight lg:text-5xl">
-            Soluciones a medida <br />
-            en 3 pasos
-          </h1>
-          <p className="mt-5 text-lg text-gray-400">
-            Agenda tu llamada, obten recomendación y recibe tu solución.<br />
-            Nuestro equipo de expertos te acompañará en cada paso.
-          </p>
-        </div>
-        <MagicCardDemo />
-        <div className="mt-14">
-          <RainbowButtonDemo>
-            Agenda tu Consultoría Gratuita Ahora
-          </RainbowButtonDemo>
-        </div>
+      {/* Community Section */}
+      <NewsletterCommunity />
 
+      {/* Skills Section */}
+      <NewsletterSkills />
+
+      {/* Free Gifts Section */}
+      <NewsletterGifts />
+      
+
+
+      {/* Testimonials Marquee */}
+      <section className="relative w-full overflow-hidden bg-[#0a0a0a] pt-4 pb-16">
+        <div className="absolute inset-0 flex items-center justify-center -z-10">
+          <div className="h-full w-full bg-gradient-to-r from-[#C9A880]/20 to-[#C9A880]/10 blur-[120px]" />
+        </div>
+        <MarqueeDemo />
       </section>
+      
+      {/* Cursos IA Section */}
+      <NewsletterCourses />
 
+      {/* Spacer */}
+      <div className="h-16 bg-[#0a0a0a]"></div>
 
-    </div >
-  )
+      {/* Footer */}
+      <Footer />
+      
+      {/* Notificaciones de actividad reciente */}
+      <ActivityNotifications />
+    </div>
+  );
 }
