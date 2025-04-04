@@ -27,6 +27,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden; /* Previene scroll horizontal */
+  }
+  html {
+    overflow-x: hidden; /* Asegura que no haya scroll horizontal a nivel del documento */
   }
 }
 .magic-card {
