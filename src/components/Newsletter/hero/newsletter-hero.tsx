@@ -11,7 +11,7 @@ import { NewsletterAvatarCircles } from "@/components/Newsletter/newsletter-avat
 import { RainbowButtonDemo } from "@/components/rainbowButton";
 import { SmoothScrollLink } from "@/components/SmoothScroll";
 import { Input } from "@/components/ui/input";
-import { beehiivService } from "@/services/beehiiv"; // Importamos el servicio de Beehiiv
+import { beehiivService } from "@/services/beehiiv";
 
 export function NewsletterHero() {
   const [name, setName] = useState("");
@@ -20,6 +20,10 @@ export function NewsletterHero() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  
+  // Añadimos estado para recargar el componente cuando se realiza un registro exitoso
+  const [submissionCount, setSubmissionCount] = useState(0);
+  
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -289,12 +293,22 @@ export function NewsletterHero() {
 
       // Redireccionar a la página de agradecimiento
       setIsSuccess(true);
-      window.location.href = "/thank-you";
-
-      // Limpiar formulario (aunque se redirige, por si acaso)
+      
+      // Incrementar el contador de suscriptores
+      await beehiivService.incrementCounter();
+      
+      // Incrementar el contador de envíos para forzar una recarga del componente
+      setSubmissionCount(prev => prev + 1);
+      
+      // Limpiar formulario y redirigir
       setName("");
       setEmail("");
       setAccepted(false);
+      
+      // Pequeño retraso antes de redirigir para asegurar que se procesa la actualización
+      setTimeout(() => {
+        window.location.href = "/thank-you";
+      }, 300);
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "Error desconocido";
       console.error("Error al registrar suscriptor:", error);
@@ -654,7 +668,7 @@ export function NewsletterHero() {
 
           {/* Subscription Form - Elegante con color principal muy oscuro */}
           <div className="bg-gradient-to-b from-[#161310]/90 to-[#0c0a06]/95 backdrop-blur-md p-8 rounded-3xl border border-[#C9A880]/25 hover:border-[#C9A880]/40 shadow-lg max-w-2xl mx-auto space-y-6 transition-all duration-300">
-            <NewsletterAvatarCircles className="mb-2" />
+            <NewsletterAvatarCircles className="mb-2" key={submissionCount} />
 
             {errorMessage && (
               <div className="text-red-400 bg-red-500/10 p-4 rounded-lg text-sm border border-red-500/20 text-center animate-pulse">

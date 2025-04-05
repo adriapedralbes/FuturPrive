@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AvatarCircles } from "@/components/magicui/avatar-circles";
 import { ProgressIndicator } from "@/components/Newsletter/progress-indicator";
 import { cn } from "@/lib/utils";
+import { beehiivService } from "@/services/beehiiv";
 
 // Avatares predefinidos - Mejor lista con más variedad
 const avatars = [
@@ -46,17 +47,52 @@ const avatars = [
 interface NewsletterAvatarCirclesProps {
   className?: string;
   totalPlazas?: number;
-  plazasOcupadas?: number;
   avatarsToShow?: number;
 }
+
+const BASE_SUSCRIBERS = 133; // Número base de suscriptores
 
 export function NewsletterAvatarCircles({
   className,
   totalPlazas = 200,
-  plazasOcupadas = 133,
   avatarsToShow = 6,
 }: NewsletterAvatarCirclesProps) {
     const [visibleAvatars] = useState(avatars.slice(0, avatarsToShow));
+    const [plazasOcupadas, setPlazasOcupadas] = useState(BASE_SUSCRIBERS);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchSubscriberCount = async () => {
+            try {
+                setIsLoading(true);
+                // Obtener el conteo de nuevos suscriptores
+                const newSubscribers = await beehiivService.getSubscriberCount();
+                console.log("Nuevos suscriptores:", newSubscribers);
+                
+                // Sumar el conteo base (133) más los nuevos suscriptores
+                const totalSubscribers = BASE_SUSCRIBERS + newSubscribers;
+                console.log("Total suscriptores (133 + nuevos):", totalSubscribers);
+                
+                setPlazasOcupadas(totalSubscribers);
+            } catch (error) {
+                console.error("Error al obtener el conteo de suscriptores:", error);
+                // En caso de error, mantenemos el valor base
+                setPlazasOcupadas(BASE_SUSCRIBERS);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        // Cargar inmediatamente al montar el componente
+        fetchSubscriberCount();
+        
+        // También configuramos un intervalo para actualizar cada 2 minutos
+        // para usuarios que mantengan la página abierta mucho tiempo
+        const intervalId = setInterval(fetchSubscriberCount, 2 * 60 * 1000);
+        
+        // Limpieza al desmontar
+        return () => clearInterval(intervalId);
+    }, []);
 
     // Función para crear avatares con efecto de animación
     const avatarsWithAnimation = () => (
