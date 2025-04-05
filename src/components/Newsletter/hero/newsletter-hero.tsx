@@ -340,11 +340,11 @@ export function NewsletterHero() {
             </h1>
 
             <p className="text-white/90 text-lg mb-10 max-w-xl">
-              Únete a nuestra comunidad #1 donde aprenderás a dominar los Agentes IA y transformarás por completo tu negocio y carrera profesional mientras los demás se quedan estancados.
+              Únete a la comunidad #1 donde aprenderás a dominar los Agentes IA y transformarás por completo tu negocio y carrera profesional mientras los demás se quedan estancados.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5 mb-8 md:mb-0">
-              <SmoothScrollLink href="#newsletter-form">
+              <SmoothScrollLink href="#newsletter-form" className="w-full sm:w-auto">
                 <div className="w-full sm:w-auto">
                   <RainbowButtonDemo className="px-7 py-3 text-base">
                     <span className="flex items-center">
@@ -630,7 +630,7 @@ export function NewsletterHero() {
       </section>
 
       {/* Subscription Form - larger and with more impact */}
-      <section id="newsletter-form" className="relative pt-32 pb-16 mt-0 bg-[#080604] border-t border-[#C9A880]/15">
+      <section id="newsletter-form" className="relative pt-32 pb-16 mt-0 bg-[#080604] border-t border-[#C9A880]/15" data-scroll-target="newsletter-form">
         {/* Fondo con degradado sutil basado en el color principal pero muy oscurecido */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806] to-[#050302] z-10"></div>
 

@@ -98,7 +98,7 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
       const result = await authService.updateProfile(updatedData);
       setUserProfile(result);
       setSuccess('Perfil actualizado correctamente.');
-      
+
       // Avanzar al paso de suscripción
       setStep('subscription');
     } catch (err) {
@@ -121,12 +121,12 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
       console.log("Iniciando proceso de suscripción");
       console.log("Success URL:", successUrl);
       console.log("Cancel URL:", cancelUrl);
-      
+
       // Crear sesión de checkout
       const session = await subscriptionService.createCheckoutSession(successUrl, cancelUrl);
-      
+
       console.log("Sesión de checkout creada:", session);
-      
+
       // Redirigir a la página de checkout de Stripe
       if (session && session.checkout_url) {
         window.location.href = session.checkout_url;
@@ -145,7 +145,7 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-      <div 
+      <div
         className="relative bg-[#323230] p-6 rounded-lg w-full max-w-2xl mx-4 md:mx-auto shadow-xl border border-white/10 max-h-[90vh] overflow-y-auto"
         role="dialog"
         aria-labelledby="profile-setup-title"
@@ -155,7 +155,7 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
             {/* Botón de cierre eliminado para forzar la configuración de perfil */}
 
             <h2 id="profile-setup-title" className="text-2xl font-bold text-white mb-6">Configura tu perfil</h2>
-            
+
             {error && (
               <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 rounded-lg mb-6">
                 {error}
@@ -201,18 +201,18 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
                           <User size={32} />
                         </div>
                       )}
-                      
+
                       <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 hover:opacity-100 transition-opacity">
                         <Upload size={20} className="text-white" />
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="text-sm text-zinc-400">
                     <p>Haz clic para subir una nueva foto</p>
                     <p>Formatos aceptados: JPG, PNG (máx. 2MB)</p>
                   </div>
-                  
+
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -332,7 +332,7 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
         ) : (
           <>
             <h2 id="subscription-title" className="text-2xl font-bold text-white mb-6">Suscríbete para continuar</h2>
-            
+
             {error && (
               <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 rounded-lg mb-6">
                 {error}
@@ -344,11 +344,11 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
               <p className="text-zinc-300 mb-4">
                 Para acceder a nuestra comunidad y a todos los recursos exclusivos, es necesario activar tu suscripción mensual.
               </p>
-              
+
               <div className="bg-[#323230] rounded-lg p-4 mb-6">
                 <div className="flex justify-between items-center">
                   <div>
-                    <span className="text-2xl font-bold text-white">20€</span>
+                    <span className="text-2xl font-bold text-white">20$</span>
                     <span className="text-zinc-400 ml-1">/ mes</span>
                   </div>
                   <span className="text-green-400 text-sm font-medium">Cancela cuando quieras</span>
@@ -382,12 +382,12 @@ export const ProfileConfigurationModal: React.FC<ProfileConfigurationModalProps>
               >
                 {isLoading ? 'Procesando...' : 'Suscribirme ahora'}
               </Button>
-              
+
               <p className="text-zinc-500 text-sm mt-4 text-center">
                 Pago seguro procesado por Stripe. Puedes cancelar en cualquier momento.
               </p>
             </div>
-            
+
             <div className="flex justify-start">
               <Button
                 type="button"
