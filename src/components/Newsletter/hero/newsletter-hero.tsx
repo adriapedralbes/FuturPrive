@@ -20,10 +20,10 @@ export function NewsletterHero() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  
+
   // Añadimos estado para recargar el componente cuando se realiza un registro exitoso
   const [submissionCount, setSubmissionCount] = useState(0);
-  
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -293,18 +293,18 @@ export function NewsletterHero() {
 
       // Redireccionar a la página de agradecimiento
       setIsSuccess(true);
-      
+
       // Incrementar el contador de suscriptores
       await beehiivService.incrementCounter();
-      
+
       // Incrementar el contador de envíos para forzar una recarga del componente
       setSubmissionCount(prev => prev + 1);
-      
+
       // Limpiar formulario y redirigir
       setName("");
       setEmail("");
       setAccepted(false);
-      
+
       // Pequeño retraso antes de redirigir para asegurar que se procesa la actualización
       setTimeout(() => {
         window.location.href = "/thank-you";
@@ -340,13 +340,11 @@ export function NewsletterHero() {
             </h1>
 
             <p className="text-white/90 text-lg mb-10 max-w-xl">
-              Únete a la comunidad #1 para pioneros de la IA donde aprenderás
-              a dominar la Inteligencia Artificial y los Agentes IA para
-              transformar por completo tu negocio y carrera profesional.
+              Únete a la comunidad #1 donde aprenderás a dominar los Agentes IA y transformarás por completo tu negocio y carrera profesional mientras los demás se quedan estancados.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-5 mb-8 md:mb-0">
-              <SmoothScrollLink href="#newsletter-form">
+              <SmoothScrollLink href="#newsletter-form" className="w-full sm:w-auto">
                 <div className="w-full sm:w-auto">
                   <RainbowButtonDemo className="px-7 py-3 text-base">
                     <span className="flex items-center">
@@ -632,7 +630,7 @@ export function NewsletterHero() {
       </section>
 
       {/* Subscription Form - larger and with more impact */}
-      <section id="newsletter-form" className="relative pt-32 pb-16 mt-0 bg-[#080604] border-t border-[#C9A880]/15">
+      <section id="newsletter-form" className="relative pt-32 pb-16 mt-0 bg-[#080604] border-t border-[#C9A880]/15" data-scroll-target="newsletter-form">
         {/* Fondo con degradado sutil basado en el color principal pero muy oscurecido */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806] to-[#050302] z-10"></div>
 

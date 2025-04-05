@@ -61,7 +61,7 @@ const reviews = [
     {
         name: "Martín",
         username: "@martinconstruccion",
-        body: "Predicción de mantenimiento que evitó paradas y ahorró €120K en un año.",
+        body: "Predicción de mantenimiento que evitó paradas y ahorró $120K en un año.",
         img: "https://i.pravatar.cc/150?img=14", // Hombre
     },
     {
@@ -141,12 +141,12 @@ const ReviewCard = ({
             )}
         >
             <div className="flex flex-row items-center gap-2">
-                <Image 
-                    className="rounded-full" 
-                    width={32} 
-                    height={32} 
-                    alt={`${name}'s profile`} 
-                    src={img} 
+                <Image
+                    className="rounded-full"
+                    width={32}
+                    height={32}
+                    alt={`${name}'s profile`}
+                    src={img}
                 />
                 <div className="flex flex-col">
                     <figcaption className="text-sm font-medium text-white">

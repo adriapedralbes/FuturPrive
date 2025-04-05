@@ -289,43 +289,40 @@ export default function ThankYouPage() {
     <div className="flex flex-col min-h-screen bg-[#0a0a0a] text-white">
       {/* Barra de navegación superior */}
       <header className="w-full bg-[#070707] backdrop-blur-md border-b border-white/10 py-5 px-8 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <Logo width={40} height={40} className="h-10 w-auto" />
-            <span className="text-white text-xl md:text-2xl font-semibold">
-              FuturPrive <span className="text-[#C9A880]">Community</span>
+        <div className="max-w-7xl mx-auto flex items-center justify-center md:justify-start">
+          <a href="/comunidad" className="flex items-center space-x-3 group transition-all">
+            <Logo width={40} height={40} className="h-10 w-auto group-hover:scale-105 transition-transform" />
+            <span className="text-white text-xl md:text-2xl font-semibold group-hover:text-white/90 transition-colors">
+              FuturPrive <span className="text-[#C9A880] group-hover:text-[#D9B890] transition-colors">Community</span>
             </span>
-          </div>
-          <a 
-            href="/comunidad" 
-            className="text-white/70 hover:text-white text-sm font-medium flex items-center transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-            </svg>
-            Volver
           </a>
         </div>
       </header>
 
       <div className="flex flex-col items-center justify-center flex-grow px-4 py-16 text-center">
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          ¡Tu lugar está asegurado!
+          ¡Lo has conseguido! 🚀
         </motion.h1>
 
-        <motion.p
-          className="text-lg sm:text-xl max-w-2xl mb-16"
+        <motion.div
+          className="text-lg sm:text-xl max-w-2xl mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          ¡Gracias por unirte a la lista de espera de la Comunidad FuturPrive! Me pondré en contacto contigo cuando la comunidad esté lista. ¡Mira también el video a continuación!
-        </motion.p>
+          <p className="mb-4">Has dado un paso que muy poca gente da. En un mundo lleno de ruido y distracciones, has tomado una decisión que te diferencia del resto.</p>
+
+          <p className="mb-4">La mayoría se queda en la superfície, pero tú has decidido ir un paso más allá.</p>
+
+          <p className="mb-4">Te he reservado tu plaza en la Comunidad FuturPrive y <span className="text-[#C9A880] font-semibold">me pondré en contacto contigo en cuanto abramos las puertas.</span></p>
+
+          <p className="mb-6">Mientras tanto, te he preparado este vídeo que deberías ver AHORA MISMO si quieres entender por qué lo que estamos construyendo es tan diferente a todo lo demás.</p>
+        </motion.div>
 
         <motion.div
           className="w-full max-w-3xl mx-auto"
@@ -577,6 +574,59 @@ export default function ThankYouPage() {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="w-full max-w-3xl mx-auto mt-16 text-left"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <div className="bg-black/30 border border-white/10 rounded-xl p-8 shadow-xl">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+              Tres cosas que debes saber...
+            </h2>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-[#C9A880]">1. Esto NO es para todo el mundo</h3>
+                <p className="text-white/80">
+                  Lo digo en serio. FuturPrive Community no es otra comunidad más. No buscamos a cualquiera. Buscamos a personas que quieren resultados REALES en su patrimonio. Si esperas teorías bonitas que nunca se aplican, hay miles de sitios que te pueden servir. Pero si buscas estrategias COMPROBADAS por gente que maneja patrimonio de verdad... este es tu sitio.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-[#C9A880]">2. El acceso será limitado</h3>
+                <p className="text-white/80">
+                  Para mantener la calidad, solo aceptaremos un número limitado de miembros. No es marketing. Es una decisión estratégica. Las plazas se abrirán por orden de lista de espera. Así que estar donde estás ahora mismo, ya te da ventaja.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-2 text-[#C9A880]">3. Te avisaré personalmente</h3>
+                <p className="text-white/80">
+                  Cuando abramos las puertas, te avisaré personalmente. No habrá grandes campañas ni ruido. Solo un email directo para que puedas decidir si quieres entrar. Sin presiones, sin urgencias inventadas. Solo una oportunidad real para quien realmente la quiera aprovechar.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 pt-6 border-t border-white/10">
+              <p className="italic text-white/70 text-lg">
+                "Construir patrimonio requiere información privilegiada, estrategias diferentes a las de las masas y, sobre todo, un entorno donde compartir con gente que está en tu mismo camino. Eso es exactamente lo que estamos creando."
+              </p>
+              <p className="mt-3 text-[#C9A880] font-semibold">- Adrià</p>
+            </div>
+
+            <div className="mt-8 bg-[#1a1a1a] p-5 rounded-lg border border-[#C9A880]/30">
+              <h4 className="font-semibold text-[#C9A880] mb-2">IMPORTANTE: Revisa tu email</h4>
+              <p className="text-white/80 mb-3">
+                Te he enviado un email de confirmación. <strong>Debes hacer clic en el enlace</strong> para asegurar que recibes todas las comunicaciones importantes.
+              </p>
+              <p className="text-white/80">
+                Si no lo ves, revisa la carpeta de spam o promociones. Es un paso pequeño pero crucial para no perderte nada. ¿Vale la pena perder oportunidades por no revisar tu email? Yo creo que no.
+              </p>
             </div>
           </div>
         </motion.div>

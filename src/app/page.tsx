@@ -1,18 +1,96 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 import { AnimatedButton } from "@/components/animatedButton";
 import { AvatarCirclesDemo } from "@/components/avatarCircles";
 import { Footer } from "@/components/footer-component";
 import { Logo } from "@/components/Logo";
 import { MagicCardDemo } from "@/components/magicCard";
+import { NewsletterForm } from "@/components/Newsletter/newsletter-form";
 import { BentoDemo } from "@/components/our-services";
 import { RainbowButtonDemo } from "@/components/rainbowButton";
+import { SmoothScrollLink } from "@/components/SmoothScroll";
 import { MarqueeDemo } from "@/components/testimonials";
 import { Button } from "@/components/ui/button";
 
+
+
 export default function Home() {
+  // Referencia al elemento del formulario para poder hacer scroll directamente
+  const newsletterFormRef = useRef<HTMLElement>(null);
+  // Script mejorado para manejar el scroll usando la referencia directa
+  useEffect(() => {
+    // Función para hacer scroll al formulario de newsletter usando la referencia
+    const scrollToNewsletterForm = () => {
+      if (newsletterFormRef.current) {
+        console.log('Aplicando scroll al formulario usando ref');
+        newsletterFormRef.current.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // O alternativamente:
+        // const yOffset = -100; // ajusta este valor según necesites
+        // const y = newsletterFormRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        // window.scrollTo({top: y, behavior: 'smooth'});
+        
+        // Actualizar URL sin causar un salto adicional
+        window.history.pushState(null, '', '#newsletter-form');
+      } else {
+        console.warn('⚠️ Referencia al formulario no encontrada');
+      }
+    };
+    
+    // Manejar clicks en enlaces que apuntan al formulario
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      
+      if (anchor) {
+        const href = anchor.getAttribute('href');
+        
+        if (href === '#newsletter-form') {
+          e.preventDefault();
+          console.log('Interceptado click al formulario de newsletter');
+          scrollToNewsletterForm();
+        }
+      }
+    };
+    
+    // Añadir event listener para capturar clicks
+    document.addEventListener('click', handleAnchorClick);
+    
+    // Si hay un hash en la URL al cargar, manejar el scroll inicial
+    if (window.location.hash === '#newsletter-form') {
+      console.log('Hash #newsletter-form detectado en la URL');
+      // Retrasar para asegurar que todo está cargado
+      setTimeout(scrollToNewsletterForm, 500);
+    }
+    
+    // Función adicional para manejar SmoothScrollLink
+    const handleSmoothScrollClick = () => {
+      const btns = document.querySelectorAll('a[href="#newsletter-form"]');
+      btns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          console.log('Click directo en SmoothScrollLink');
+          scrollToNewsletterForm();
+        });
+      });
+    };
+    
+    // Ejecutar después de un tiempo para asegurar que los elementos están en el DOM
+    setTimeout(handleSmoothScrollClick, 500);
+    
+    return () => {
+      document.removeEventListener('click', handleAnchorClick);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Navigation */}
@@ -59,10 +137,10 @@ export default function Home() {
             className="gap-2 font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300 btn-blink"
             asChild
           >
-            <Link href="https://cal.com/futurprive/consultoria-gratis">
-              Agenda tu Consultoría Gratuita Ahora
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <SmoothScrollLink href="#newsletter-form">
+              Ir al Formulario de Newsletter
+              <ArrowRight className="h-4 w-4 ml-1" />
+            </SmoothScrollLink>
           </Button>
         </div>
       </main>
@@ -111,15 +189,31 @@ export default function Home() {
         </div>
         <MagicCardDemo />
         <div className="mt-14">
-          <Link href="https://cal.com/futurprive/consultoria-gratis" className="block">
+          <SmoothScrollLink href="#newsletter-form" className="block">
             <div className="btn-blink inline-block rounded-xl overflow-hidden">
               <RainbowButtonDemo>
-                Agenda tu Consultoría Gratuita Ahora
+                Inscríbete Ahora
               </RainbowButtonDemo>
             </div>
-          </Link>
+          </SmoothScrollLink>
         </div>
       </section>
+      {/* Newsletter Form Section */}
+      <section 
+        ref={newsletterFormRef}
+        id="newsletter-form" 
+        className="bg-[#080604] relative py-20 px-4 border-t border-[#C9A880]/15 scroll-mt-[100px]"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0806] to-[#050302] z-0"></div>
+        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#C9A880]/8 blur-[120px] z-0"></div>
+        <div className="relative z-10">
+          <div className="w-full max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6 text-white">Suscríbete a Nuestra Newsletter</h2>
+            <NewsletterForm />
+          </div>
+        </div>
+      </section>
+      
       <section>
         <Footer />
       </section>
