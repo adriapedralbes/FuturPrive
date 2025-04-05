@@ -289,13 +289,22 @@ export default function ThankYouPage() {
     <div className="flex flex-col min-h-screen bg-[#0a0a0a] text-white">
       {/* Barra de navegación superior */}
       <header className="w-full bg-[#070707] backdrop-blur-md border-b border-white/10 py-5 px-8 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-center md:justify-start">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Logo width={40} height={40} className="h-10 w-auto" />
             <span className="text-white text-xl md:text-2xl font-semibold">
               FuturPrive <span className="text-[#C9A880]">Community</span>
             </span>
           </div>
+          <a 
+            href="/comunidad" 
+            className="text-white/70 hover:text-white text-sm font-medium flex items-center transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+            </svg>
+            Volver
+          </a>
         </div>
       </header>
 

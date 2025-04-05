@@ -48,9 +48,35 @@ export async function POST(request: Request) {
     // Obtener la respuesta de Beehiiv
     const responseData = await response.json();
 
-    // Si la respuesta no es exitosa, devolver un error
+    // Si la respuesta no es exitosa, verificar el tipo de error
     if (!response.ok) {
       console.error('Error from Beehiiv API:', responseData);
+      
+      // Comprobar si es un error de duplicado (email ya registrado)
+      if (responseData.error && 
+         (responseData.error.includes("already subscribed") || 
+          responseData.error.includes("already exists") ||
+          responseData.code === "existing_subscription")) {
+        
+        console.log('Email ya registrado, consideramos éxito:', subscriberData.email);
+        
+        // Para emails ya registrados, consideramos un éxito y devolvemos respuesta positiva
+        // para que el usuario vea un mensaje de éxito y no se confunda
+        return new NextResponse(
+          JSON.stringify({ 
+            success: true, 
+            alreadySubscribed: true,
+            message: "¡Este email ya estaba registrado! No te preocupes, ya estás en la lista de espera.",
+            data: {
+              email: subscriberData.email,
+              status: "active"
+            }
+          }),
+          { status: 200 }
+        );
+      }
+      
+      // Para otros tipos de errores, devolver el error normal
       return new NextResponse(
         JSON.stringify({ 
           success: false, 
