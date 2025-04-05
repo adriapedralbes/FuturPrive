@@ -31,6 +31,35 @@
   }
   html {
     overflow-x: hidden; /* Asegura que no haya scroll horizontal a nivel del documento */
+    scroll-behavior: smooth; /* Asegura que todos los scrolls sean suaves */
+  }
+  /* Ajustar espacio superior para secciones con ID para scroll */
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+  /* Específicamente para el formulario de newsletter */
+  #newsletter-form {
+    scroll-margin-top: 100px; /* Más espacio para asegurar visibilidad */
+    scroll-behavior: smooth;
+    position: relative;
+  }
+  /* Indicador visual cuando llegamos al destino del scroll */
+  #newsletter-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #C9A880, #A78355);
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 0.4s, transform 0.4s;
+    z-index: 50;
+  }
+  #newsletter-form:target::before {
+    opacity: 1;
+    transform: scaleX(1);
   }
 }
 .magic-card {

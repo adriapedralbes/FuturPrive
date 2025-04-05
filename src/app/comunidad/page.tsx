@@ -14,8 +14,22 @@ import { NewsletterSkills } from "@/components/Newsletter/skills/newsletter-skil
 import { MarqueeDemo } from "@/components/testimonials";
 
 export default function ComunidadPage() {
-  // Implementar scroll suave para los enlaces de anclaje
+  // Implementar scroll suave para los enlaces de anclaje y manejar hash en URL
   useEffect(() => {
+    // Función para hacer scroll a un elemento
+    const scrollToElement = (elementId: string) => {
+      const element = document.getElementById(elementId);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const absoluteTop = rect.top + window.scrollY;
+        window.scrollTo({
+          top: absoluteTop - 100, // Offset para que no quede pegado al borde superior
+          behavior: 'smooth'
+        });
+      }
+    };
+
+    // Manejar clics en enlaces de anclaje
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
@@ -23,26 +37,36 @@ export default function ComunidadPage() {
       if (anchor && anchor.getAttribute('href')?.startsWith('#')) {
         e.preventDefault();
         const targetId = anchor.getAttribute('href')?.replace('#', '');
-        const targetElement = document.getElementById(targetId || '');
-
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop,
-            behavior: 'smooth'
-          });
+        if (targetId) {
+          scrollToElement(targetId);
+          // Actualizar URL sin recargar
+          history.pushState(null, '', `#${targetId}`);
         }
       }
     };
 
     document.addEventListener('click', handleAnchorClick);
 
-    // Asegurar que al cargar la página, solo se vea la sección hero
+    // Manejar hash en URL al cargar
+    const handleInitialHash = () => {
+      // Restaurar scroll normal primero
+      document.body.style.overflow = '';
+      
+      const hash = window.location.hash;
+      if (hash) {
+        // Dar tiempo a que se renderice todo
+        setTimeout(() => {
+          const targetId = hash.replace('#', '');
+          scrollToElement(targetId);
+        }, 500);
+      }
+    };
+
+    // Asegurar que al cargar la página, solo se vea la sección hero inicialmente
     document.body.style.overflow = 'hidden';
     
-    // Después de 1 segundo, restaurar el scroll
-    const timer = setTimeout(() => {
-      document.body.style.overflow = '';
-    }, 1000);
+    // Después de un tiempo, restaurar el scroll y manejar hash si existe
+    const timer = setTimeout(handleInitialHash, 800);
 
     return () => {
       document.removeEventListener('click', handleAnchorClick);
