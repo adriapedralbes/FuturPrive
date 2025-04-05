@@ -23,7 +23,7 @@ export const AnimatedShinyText: FC<AnimatedShinyTextProps> = ({
       className={cn(
         "mx-auto max-w-md",
         "animate-shiny-text bg-clip-text bg-no-repeat [background-position:0_0] [background-size:var(--shiny-width)_100%] [transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite]",
-        "bg-gradient-to-r from-transparent via-purple-500/80 via-50% to-transparent",
+        "bg-gradient-to-r from-transparent via-[#C9A880]/80 via-50% to-transparent",
         className,
       )}
       {...props}

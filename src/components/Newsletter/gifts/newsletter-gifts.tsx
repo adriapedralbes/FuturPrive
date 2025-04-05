@@ -30,11 +30,11 @@ export function NewsletterGifts() {
               </p>
 
               <p className="mb-6 text-gray-300 text-lg">
-                Mi trayectoria incluye trabajar como desarrollador de software para una empresas y asesorar a numerosas startups, guiando sus estrategias e integración de IA.
+                Mi trayectoria incluye trabajar como desarrollador de software para empresas y asesorar a numerosas startups, guiando sus estrategias e integración de IA.
 
-                He visto de primera mano el INMENSO potencial y los peligros de la IA, lo que me ha equipado para ofrecer conocimientos PRÁCTICOS y ACCIONABLES que pueden transformar tus habilidades y tu negocio.
+                He visto de primera mano el INMENSO potencial y los peligros de la IA, lo que me ha equipado para ofrecer conocimientos PRÁCTICOS que pueden transformar tus habilidades y tu negocio.
 
-                Lo que enseño es fruto de mi PROPIA experiencia. No toco de oídas.
+                Lo que enseño es fruto de mi PROPIA experiencia.
               </p>
             </div>
           </div>

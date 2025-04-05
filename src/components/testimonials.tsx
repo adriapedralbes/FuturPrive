@@ -163,10 +163,7 @@ const ReviewCard = ({
 export function MarqueeDemo() {
     return (
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden py-4">
-            {/* Title para introducir las testimoniales */}
-            <div className="text-center mb-4 mt-8 w-full px-4">
-                <h2 className="text-2xl md:text-3xl font-bold">Resultados reales</h2>
-            </div>
+            {/* El título ahora lo maneja la página principal para mejor control */}
 
             {/* Container que ocupa todo el ancho */}
             <div className="w-screen relative">

@@ -78,43 +78,43 @@ export function NewsletterForm() {
       
       {/* Heading */}
       <h2 className="mb-4 text-3xl font-bold tracking-tight lg:text-4xl">
-        Emprende Aprendiendo
+        Agenda TU LLAMADA GRATUITA
       </h2>
       
       {/* Subtitle */}
       <p className="mb-6 text-lg text-gray-400">
-        Suscríbete GRATIS para recibir las últimas tendencias, 
-        <br />estrategias, e ideas de negocio <span className="text-yellow-400">💡</span>
+        Mira, no te voy a enredar con promesas vacías. 
+        <br />Te doy 30 minutos que pueden cambiar tu negocio <span className="text-yellow-400">⚡</span>
       </p>
 
       {/* Copywriting Section */}
       <div className="mb-8 bg-gradient-to-r from-purple-900/20 to-blue-900/20 rounded-xl p-6 text-left">
-        <h3 className="text-xl font-bold mb-3 text-purple-400">Mantente al día de las últimas tendencias en Inteligencia Artificial</h3>
+        <h3 className="text-xl font-bold mb-3 text-purple-400">Te voy a contar algo que casi nadie te dice sobre la IA</h3>
         
         <p className="mb-4 text-gray-300">
-          ¿Te acuerdas de cuando la IA era solo ciencia ficción? Yo sí. Y ahora, mientras escribo esto, tengo 3 herramientas de IA abiertas que están haciendo mi trabajo más fácil (y más divertido). 
+          Hace 10 años, cuando empecé a hablar de IA, la gente me miraba como si fuera un loco. Hoy, los que NO la usan son los que se están quedando atrás. Y RÁPIDO.
         </p>
         
         <p className="mb-4 text-gray-300">
-          La verdad es que, en mi viaje como emprendedor, he aprendido que no se trata de <span className="italic">tener</span> todas las herramientas, sino de saber <span className="font-semibold">cuáles son las correctas para ti</span>.
+          Me he encontrado con dos tipos de empresarios: los que <span className="italic">hablan</span> de implementar IA... y los que <span className="font-semibold">multiplican sus beneficios gracias a ella</span>. ¿La diferencia? Los segundos tomaron acción.
         </p>
 
         <div className="mb-4 border-l-4 border-purple-500 pl-4 py-1">
           <p className="text-gray-300">
-            &ldquo;La diferencia entre quienes despegan y quienes se estancan está en saber qué tendencias de IA realmente importan para tu negocio.&rdquo;
+            &ldquo;Si sigues haciendo lo mismo que hace 2 años, estás perdiendo dinero. La IA no es el futuro. Es el AHORA. Y quien no lo vea, se quedará fuera.&rdquo;
           </p>
         </div>
 
-        <h4 className="font-semibold text-white mb-2">Lo que obtendrás cada semana:</h4>
+        <h4 className="font-semibold text-white mb-2">En tu consultoría GRATUITA descubrirás:</h4>
         <ul className="list-disc list-inside space-y-1 mb-4 text-gray-300">
-          <li>Análisis de las herramientas de IA que están cambiando el juego (sin el palabrerío técnico)</li>
-          <li>Estrategias probadas que puedes implementar <span className="italic">hoy mismo</span></li>
-          <li>Historias reales de emprendedores como tú que están revolucionando sus negocios</li>
-          <li>Un toque de humor para recordarte que la tecnología debe ser divertida 😉</li>
+          <li>Exactamente DÓNDE está perdiendo dinero tu empresa (y cómo la IA puede solucionarlo)</li>
+          <li>Las 3 herramientas que puedes implementar <span className="italic">esta misma semana</span> para reducir costes</li>
+          <li>Un plan personalizado para automatizar las tareas que te están robando tiempo</li>
+          <li>Cómo adelantar a tu competencia mientras ellos siguen en el siglo XX 🚀</li>
         </ul>
 
         <p className="text-gray-300">
-          ¿Preparado para dejar de preguntarte &ldquo;¿qué me estoy perdiendo?&rdquo; y empezar a ser quien está al frente de la revolución?
+          ¿Quieres seguir aplazando lo inevitable o prefieres ser parte de los que están transformando su negocio AHORA?
         </p>
       </div>
 
@@ -126,14 +126,15 @@ export function NewsletterForm() {
 
       {submitted ? (
         <div className="p-4 bg-green-500/20 rounded-lg">
-          <p className="text-green-400 font-medium">¡Gracias por suscribirte a nuestra newsletter!</p>
+          <p className="text-green-400 font-medium">¡GENIAL! Revisa tu email en los próximos 5 minutos para confirmar tu consultoría.</p>
+          <p className="text-sm text-gray-300 mt-2">Si no ves nada, comprueba tu carpeta de spam (a veces pasa).</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2 max-w-lg mx-auto">
           {/* Campo de nombre (opcional) */}
           <input
             type="text"
-            placeholder="Tu nombre (opcional)"
+            placeholder="Tu nombre"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="px-4 py-3 bg-[#1c1c1c] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -143,7 +144,7 @@ export function NewsletterForm() {
           <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="email"
-              placeholder="Tu email"
+              placeholder="Tu mejor email (recibirás instrucciones aquí)"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -151,12 +152,13 @@ export function NewsletterForm() {
             />
             <Button 
               type="submit"
-              className="bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium"
+              className="bg-white text-black hover:bg-gray-200 px-8 py-3 font-medium btn-blink"
               disabled={submitting}
             >
-              {submitting ? "Enviando..." : "Suscribirme"}
+              {submitting ? "Enviando..." : "AGENDAR MI LLAMADA"}
             </Button>
           </div>
+          <p className="text-xs text-gray-400 mt-2">* Plazas limitadas. Solo trabajo con quien realmente quiere resultados.</p>
         </form>
       )}
     </div>
